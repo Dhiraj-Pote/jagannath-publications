@@ -1,10 +1,11 @@
 # Sveltia CMS Configuration
-# Uses GitHub PKCE OAuth — no server-side proxy needed
+# Uses custom OAuth worker on Cloudflare
 
 backend:
   name: github
   repo: vaniwiki/jagannath-publications
   branch: main
+  base_url: https://sveltia-cms-auth.ahaituki-s-account.workers.dev
 
 media_folder: "public/images/books"
 public_folder: "/images/books"
