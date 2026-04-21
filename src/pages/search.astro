@@ -1,0 +1,195 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BookCard from '../components/BookCard.astro';
+import Cart from '../components/Cart.astro';
+import { getCollection } from 'astro:content';
+
+const allBooks = await getCollection('books');
+
+// Serialize once for client-side scoring — matches Header's searchIndex shape
+const searchIndex = allBooks
+  .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100))
+  .map((b) => ({
+    title: b.data.title,
+    subtitle: b.data.subtitle ?? '',
+    slug: b.slug,
+    language: b.data.language,
+    coverFront: b.data.coverFront,
+    price: b.data.price ?? null,
+    currency: b.data.currency ?? 'INR',
+  }));
+---
+
+<Base
+  title="Search"
+  description="Search across the complete catalog of Jagannath Publications."
+>
+  <Header />
+
+  <main class="pt-28 pb-20">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <!-- Heading (populated via JS from ?q=) -->
+      <div class="text-center mb-10">
+        <p class="font-display text-xs tracking-[0.3em] uppercase text-brand-500 font-semibold mb-3">
+          Search Results
+        </p>
+        <h1
+          id="search-heading"
+          class="font-display text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-2"
+        >
+          Find a book
+        </h1>
+        <p id="search-summary" class="font-display text-sm text-[var(--text-muted)]">
+          Type above to search the library.
+        </p>
+      </div>
+
+      <!-- Results grid (BookCard layout mirroring /books/) -->
+      <div
+        id="search-results-grid"
+        class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-7"
+      ></div>
+
+      <!-- Empty state -->
+      <div id="search-empty" class="hidden text-center py-16">
+        <svg
+          class="mx-auto w-12 h-12 text-[var(--text-subtle)] mb-4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+        <p class="font-display text-lg text-[var(--text-primary)] mb-2">No books found</p>
+        <p class="font-display text-sm text-[var(--text-muted)] mb-6">
+          Try a different term, or browse the full catalog.
+        </p>
+        <a
+          href="/books/"
+          class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-display text-sm font-semibold tracking-wider uppercase border-2 border-[var(--border-strong)] text-[var(--text-primary)] hover:border-brand-500 hover:text-brand-500 transition"
+        >
+          Browse all books
+        </a>
+      </div>
+
+      <!-- Hidden BookCard pool — cloned into the results grid as matches come through -->
+      <template id="bookcard-template">
+        <div class="tpl-holder">
+          {allBooks.map((b) => (
+            <div data-slug={b.slug} class="hidden">
+              <BookCard
+                slug={b.slug}
+                title={b.data.title}
+                language={b.data.language}
+                coverFront={b.data.coverFront}
+                price={b.data.price}
+                currency={b.data.currency}
+              />
+            </div>
+          ))}
+        </div>
+      </template>
+    </div>
+  </main>
+
+  <Footer />
+  <Cart />
+</Base>
+
+<script is:inline define:vars={{ searchIndex }}>
+  function scoreBook(book, query) {
+    var q = query.toLowerCase().trim();
+    if (!q) return 0;
+    var title = book.title.toLowerCase();
+    var subtitle = (book.subtitle || '').toLowerCase();
+    var haystack = title + ' ' + subtitle + ' ' + book.language.toLowerCase();
+
+    if (title === q) return 100;
+    if (title.startsWith(q)) return 85;
+    if (title.includes(q)) return 70;
+    if (subtitle.includes(q)) return 60;
+
+    var words = q.split(/\s+/).filter(Boolean);
+    if (words.length > 1 && words.every(function (w) { return haystack.includes(w); })) {
+      return 45;
+    }
+    return 0;
+  }
+
+  function escapeHtml(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function runPageSearch() {
+    var params = new URLSearchParams(window.location.search);
+    var q = (params.get('q') || '').trim();
+
+    var headingEl = document.getElementById('search-heading');
+    var summaryEl = document.getElementById('search-summary');
+    var gridEl = document.getElementById('search-results-grid');
+    var emptyEl = document.getElementById('search-empty');
+    var tpl = document.getElementById('bookcard-template');
+    if (!tpl) return;
+
+    // Pre-populate the navbar search inputs with the current query
+    var desktopInput = document.getElementById('nav-search');
+    var mobileInput = document.getElementById('nav-search-mobile');
+    if (desktopInput) desktopInput.value = q;
+    if (mobileInput) mobileInput.value = q;
+
+    if (!q) {
+      headingEl.textContent = 'Find a book';
+      summaryEl.textContent = 'Type in the search bar above to find books by title or language.';
+      gridEl.innerHTML = '';
+      emptyEl.classList.add('hidden');
+      return;
+    }
+
+    // Update document title
+    document.title = 'Search "' + q + '" — Jagannath Publications';
+
+    var matches = searchIndex
+      .map(function (b) { return { b: b, s: scoreBook(b, q) }; })
+      .filter(function (r) { return r.s > 0; })
+      .sort(function (a, b) { return b.s - a.s; })
+      .map(function (r) { return r.b; });
+
+    headingEl.innerHTML = 'Results for "<span style="color:var(--brand)">' + escapeHtml(q) + '</span>"';
+
+    if (!matches.length) {
+      summaryEl.textContent = 'No matches.';
+      gridEl.innerHTML = '';
+      emptyEl.classList.remove('hidden');
+      return;
+    }
+
+    summaryEl.textContent =
+      matches.length + (matches.length === 1 ? ' title found' : ' titles found');
+    emptyEl.classList.add('hidden');
+
+    // Clone the pre-rendered BookCard for each match (in order)
+    gridEl.innerHTML = '';
+    var holder = tpl.content.querySelector('.tpl-holder');
+    matches.forEach(function (m) {
+      var source = holder.querySelector('[data-slug="' + m.slug + '"]');
+      if (!source) return;
+      var clone = source.firstElementChild.cloneNode(true);
+      gridEl.appendChild(clone);
+    });
+
+    // Let cart wire up the newly inserted Add-to-Bag buttons
+    if (typeof window.updateCartButtons === 'function') {
+      window.updateCartButtons();
+    }
+  }
+
+  runPageSearch();
+
+  // Support back/forward navigation
+  window.addEventListener('popstate', runPageSearch);
+</script>

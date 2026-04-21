@@ -9,7 +9,6 @@ const searchIndex = allBooks
     subtitle: b.data.subtitle ?? '',
     slug: b.slug,
     lang: b.data.language,
-    cover: b.data.coverFront,
   }));
 ---
 
@@ -34,7 +33,7 @@ const searchIndex = allBooks
           </div>
         </a>
 
-        <!-- Spacer to push search + icons to the right -->
+        <!-- Spacer -->
         <div class="flex-1"></div>
 
         <!-- Search bar (desktop) -->
@@ -50,13 +49,11 @@ const searchIndex = allBooks
             <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
             </svg>
-            <div id="nav-search-results" class="search-results absolute top-full left-0 right-0 mt-2 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl shadow-xl z-50 overflow-hidden" style="display:none"></div>
           </div>
         </div>
 
         <!-- Right side icons -->
         <div class="flex items-center gap-2 sm:gap-3 shrink-0 ml-3 sm:ml-4">
-          <!-- Cart (shopping bag) -->
           <button
             onclick="toggleCart()"
             class="relative p-1.5 hover:opacity-80 transition"
@@ -69,7 +66,6 @@ const searchIndex = allBooks
             >0</span>
           </button>
 
-          <!-- Hamburger menu -->
           <button
             id="menu-toggle"
             class="p-2 text-black hover:text-[var(--accent)] transition"
@@ -87,7 +83,6 @@ const searchIndex = allBooks
   <!-- Floating glass dropdown menu -->
   <div id="mobile-menu" class="menu-hidden absolute right-0 -mt-1 w-64 origin-top-right">
     <div class="glass-menu rounded-2xl py-2">
-      <!-- Mobile search (only on small screens) -->
       <div class="sm:hidden px-4 pt-2 pb-3 border-b border-black/10">
         <div class="relative">
           <input
@@ -100,7 +95,6 @@ const searchIndex = allBooks
           <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
-          <div id="nav-search-results-mobile" class="search-results mt-2 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl shadow-md overflow-hidden" style="display:none"></div>
         </div>
       </div>
       <nav class="flex flex-col text-center font-display text-base text-black">
@@ -113,6 +107,19 @@ const searchIndex = allBooks
     </div>
   </div>
 </div>
+
+<!--
+  Portalled search dropdown — rendered as a direct child of <body> so it
+  escapes the navbar's backdrop-filter stacking context. Positioned via JS
+  to track whichever search input is currently focused.
+-->
+<div
+  id="search-portal"
+  class="search-results"
+  role="listbox"
+  aria-label="Search results"
+  style="display:none; position:fixed; z-index:100;"
+></div>
 
 <style>
   .glass-nav {
@@ -129,7 +136,6 @@ const searchIndex = allBooks
       inset 0 1px 0 rgba(255, 255, 255, 0.6),
       inset 0 -1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
-    overflow: hidden;
   }
   .glass-nav::before {
     content: '';
@@ -182,7 +188,6 @@ const searchIndex = allBooks
     letter-spacing: 0.01em;
   }
 
-  /* Animated dropdown */
   #mobile-menu {
     transition:
       opacity 0.22s ease-out,
@@ -200,54 +205,90 @@ const searchIndex = allBooks
     pointer-events: auto;
   }
 
-  /* Search result items */
+  /* ── Portalled search results ── */
+  .search-results {
+    background: #fdfbf7;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow:
+      0 20px 50px rgba(74, 28, 21, 0.18),
+      0 4px 12px rgba(74, 28, 21, 0.08);
+    overflow-y: auto;
+    max-height: 60vh;
+  }
+  .search-results::-webkit-scrollbar {
+    width: 6px;
+  }
+  .search-results::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .search-results::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 3px;
+  }
   .search-results :global(.search-result) {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 18px;
     text-decoration: none;
     color: var(--text-primary);
     transition: background 0.12s ease;
-    font-size: 14px;
+    font-size: 15px;
     border-bottom: 1px solid var(--border);
   }
   .search-results :global(.search-result:last-child) {
     border-bottom: 0;
   }
-  .search-results :global(.search-result:hover) {
+  .search-results :global(.search-result:hover),
+  .search-results :global(.search-result.active) {
     background: var(--bg-secondary);
-  }
-  .search-results :global(.search-result-cover) {
-    width: 32px;
-    height: 44px;
-    object-fit: cover;
-    border-radius: 3px;
-    background: var(--bg-secondary);
-    flex-shrink: 0;
-  }
-  .search-results :global(.search-result-info) {
-    flex: 1;
-    min-width: 0;
   }
   .search-results :global(.search-result-title) {
-    font-weight: 600;
+    font-family: 'Gatwick', Georgia, serif;
+    font-weight: 700;
+    color: var(--text-primary);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    flex: 1;
+    min-width: 0;
   }
   .search-results :global(.search-result-lang) {
-    font-size: 11px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-top: 1px;
+    font-family: 'Gatwick', Georgia, serif;
+    font-size: 13px;
+    color: var(--accent-hover);
+    font-weight: 400;
+    flex-shrink: 0;
   }
   .search-results :global(.search-empty) {
-    padding: 14px 16px;
-    font-size: 13px;
+    padding: 16px 18px;
+    font-size: 14px;
     color: var(--text-muted);
     text-align: center;
+    font-family: 'Gatwick', Georgia, serif;
+  }
+  .search-results :global(.search-view-all) {
+    display: block;
+    padding: 11px 18px;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Gatwick', Georgia, serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand);
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    position: sticky;
+    bottom: 0;
+    transition: background 0.15s ease;
+  }
+  .search-results :global(.search-view-all:hover) {
+    background: var(--bg-primary);
+    color: var(--accent-hover);
   }
 </style>
 
@@ -263,7 +304,12 @@ const searchIndex = allBooks
     });
   })();
 
-  // ── Search (unified for desktop + mobile) ──
+  // ── Move the portal onto <body> so it escapes the nav's stacking context ──
+  var portal = document.getElementById('search-portal');
+  if (portal && portal.parentNode !== document.body) {
+    document.body.appendChild(portal);
+  }
+
   function escapeHtml(s) {
     return String(s)
       .replace(/&/g, '&amp;')
@@ -285,7 +331,6 @@ const searchIndex = allBooks
     if (title.includes(q)) return 70;
     if (subtitle.includes(q)) return 60;
 
-    // All words present somewhere
     var words = q.split(/\s+/).filter(Boolean);
     if (words.length > 1 && words.every(function (w) { return haystack.includes(w); })) {
       return 45;
@@ -294,77 +339,101 @@ const searchIndex = allBooks
   }
 
   function renderResult(r) {
-    var cover = r.cover ? escapeHtml(r.cover) : '';
-    var img = cover
-      ? '<img class="search-result-cover" src="' + cover + '" alt="" loading="lazy">'
-      : '<div class="search-result-cover"></div>';
     return (
       '<a class="search-result" href="/books/' + escapeHtml(r.slug) + '/">' +
-        img +
-        '<div class="search-result-info">' +
-          '<div class="search-result-title">' + escapeHtml(r.title) + '</div>' +
-          '<div class="search-result-lang">' + escapeHtml(r.lang) + '</div>' +
-        '</div>' +
+        '<span class="search-result-title">' + escapeHtml(r.title) + '</span>' +
+        '<span class="search-result-lang">' + escapeHtml(r.lang) + '</span>' +
       '</a>'
     );
   }
 
-  function attachSearch(inputId, resultsId) {
+  // Track which input is active so we position the portal under it
+  var activeInput = null;
+
+  function positionPortal() {
+    if (!portal || !activeInput || portal.style.display === 'none') return;
+    var rect = activeInput.getBoundingClientRect();
+    portal.style.top = (rect.bottom + 8) + 'px';
+    portal.style.left = rect.left + 'px';
+    portal.style.width = rect.width + 'px';
+  }
+
+  function openPortal(input) {
+    activeInput = input;
+    portal.style.display = 'block';
+    positionPortal();
+  }
+
+  function closePortal() {
+    if (portal) portal.style.display = 'none';
+    activeInput = null;
+  }
+
+  function runSearch(input) {
+    var q = input.value;
+    var qt = q ? q.trim() : '';
+    if (!qt || qt.length < 1) {
+      closePortal();
+      return;
+    }
+    var matches = searchIndex
+      .map(function (b) { return { b: b, s: scoreBook(b, qt) }; })
+      .filter(function (r) { return r.s > 0; })
+      .sort(function (a, b) { return b.s - a.s; })
+      .map(function (r) { return r.b; });
+
+    if (!matches.length) {
+      portal.innerHTML = '<div class="search-empty">No books found</div>';
+    } else {
+      var html = matches.map(renderResult).join('');
+      html +=
+        '<a class="search-view-all" href="/search/?q=' +
+        encodeURIComponent(qt) +
+        '">View all ' + matches.length + ' ' +
+        (matches.length === 1 ? 'result' : 'results') +
+        ' <span aria-hidden="true">→</span></a>';
+      portal.innerHTML = html;
+    }
+    openPortal(input);
+    portal.scrollTop = 0;
+  }
+
+  function attachSearch(inputId) {
     var input = document.getElementById(inputId);
-    var results = document.getElementById(resultsId);
-    if (!input || !results) return;
+    if (!input) return;
 
-    function close() {
-      results.style.display = 'none';
-    }
-
-    function runSearch() {
-      var q = input.value;
-      if (!q || q.trim().length < 2) {
-        close();
-        return;
-      }
-      var matches = searchIndex
-        .map(function (b) { return { b: b, s: scoreBook(b, q) }; })
-        .filter(function (r) { return r.s > 0; })
-        .sort(function (a, b) { return b.s - a.s; })
-        .slice(0, 6)
-        .map(function (r) { return r.b; });
-
-      if (!matches.length) {
-        results.innerHTML = '<div class="search-empty">No books found</div>';
-      } else {
-        results.innerHTML = matches.map(renderResult).join('');
-      }
-      results.style.display = 'block';
-    }
-
-    input.addEventListener('input', runSearch);
-    input.addEventListener('focus', function () { if (input.value.trim().length >= 2) runSearch(); });
-
-    // Dismiss on outside click
-    document.addEventListener('click', function (e) {
-      if (e.target === input) return;
-      if (results.contains(e.target)) return;
-      close();
+    input.addEventListener('input', function () { runSearch(input); });
+    input.addEventListener('focus', function () {
+      if (input.value.trim().length >= 1) runSearch(input);
     });
-
-    // Keyboard handling
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
-        close();
+        closePortal();
         input.blur();
       } else if (e.key === 'Enter') {
-        var first = results.querySelector('a.search-result');
-        if (first) {
-          window.location.href = first.getAttribute('href');
-        }
+        e.preventDefault();
+        var q = input.value.trim();
+        if (!q) return;
+        closePortal();
+        window.location.href = '/search/?q=' + encodeURIComponent(q);
       }
     });
   }
 
-  attachSearch('nav-search', 'nav-search-results');
-  attachSearch('nav-search-mobile', 'nav-search-results-mobile');
+  attachSearch('nav-search');
+  attachSearch('nav-search-mobile');
+
+  // Dismiss on outside click
+  document.addEventListener('click', function (e) {
+    if (!portal || portal.style.display === 'none') return;
+    if (e.target === activeInput) return;
+    if (portal.contains(e.target)) return;
+    closePortal();
+  });
+
+  // Reposition on scroll / resize so the portal tracks the input
+  window.addEventListener('scroll', positionPortal, { passive: true });
+  window.addEventListener('resize', positionPortal);
 
   // Hamburger menu toggle + outside click dismiss
   (function () {
