@@ -26,6 +26,17 @@ export default {
           800: '#1a0906',
           900: '#0d0403',
         },
+        // Orange accent (CTAs from Canva)
+        brand: {
+          50:  '#fff7ed',
+          100: '#ffedd5',
+          200: '#fed7aa',
+          300: '#fdba74',
+          400: '#fb923c',
+          500: '#f97316',  // primary orange (EXPLORE BOOKS, Add to Bag)
+          600: '#ea580c',
+          700: '#c2410c',
+        },
         // Saffron / gold
         saffron: {
           50:  '#fdf9ef',
@@ -49,8 +60,8 @@ export default {
       },
       fontFamily: {
         display: ['Gatwick', 'Georgia', 'serif'],
-        body:    ['Lora', 'Georgia', 'serif'],
-        sans:    ['Inter', 'system-ui', 'sans-serif'],
+        body:    ['Gatwick', 'Georgia', 'serif'],
+        sans:    ['Gatwick', 'Inter', 'system-ui', 'sans-serif'],
       },
     },
   },

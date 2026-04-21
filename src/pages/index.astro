@@ -4,7 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import BookCard from '../components/BookCard.astro';
 import Cart from '../components/Cart.astro';
-import PeacockLogo from '../components/PeacockLogo.astro';
+import LanguagePills from '../components/LanguagePills.astro';
+import FeatureCard from '../components/FeatureCard.astro';
 import { getCollection } from 'astro:content';
 
 const allBooks = await getCollection('books');
@@ -12,56 +13,39 @@ const books = allBooks.sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 1
 
 // Featured: first 8 ordered books
 const featured = books.slice(0, 8);
-const remaining = books.slice(8);
-
-// Group by language for tabs
-const languages = [...new Set(books.map(b => b.data.language))];
-
-// Search index for autocomplete
-const searchIndex = books.map(b => ({ title: b.data.title, slug: b.slug, lang: b.data.language }));
 ---
 
 <Base>
   <Header />
 
   <!-- ═══════ HERO ═══════ -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-[var(--bg-secondary)] to-[var(--bg-primary)]"></div>
-    <div class="absolute inset-0 parchment-texture pointer-events-none"></div>
+  <section class="relative overflow-hidden pt-28 sm:pt-32 pb-12 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <div class="grid grid-cols-[1.3fr_0.7fr] lg:grid-cols-[1.1fr_0.9fr] gap-4 sm:gap-8 lg:gap-12 items-center">
+        <!-- Left: Text -->
+        <div class="fade-in">
+<h1 class="font-display text-xs sm:text-sm md:text-base lg:text-2xl font-bold text-[var(--text-secondary)] leading-tight tracking-tight uppercase mb-1 sm:mb-2">
+  The Timeless Wisdom of<br/> Srila Gour Govinda Swami
+</h1>
 
-    <div class="relative z-10 max-w-6xl mx-auto px-6 w-full pt-20 sm:pt-24 pb-6">
-      <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-start">
-        <!-- Left: Text (starts near top) -->
-        <div class="fade-in pt-4">
-          <p class="font-sans text-xs sm:text-sm tracking-[0.3em] uppercase text-[var(--accent)] mb-5 font-medium">
-            The Sacred Literature of
-          </p>
-          <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-[var(--text-primary)] leading-[1.1] tracking-tight mb-6">
-            Srila Gour Govinda
-            <span class="block">Swami Maharaja</span>
-          </h1>
-
-          <p class="font-body text-lg text-[var(--text-muted)] leading-relaxed max-w-lg mb-4">
-            Over 80 titles in English, Hindi, Bengali, and Russian &mdash; preserving the pure teachings of devotion for sincere seekers worldwide.
+          <p class="font-display text-xs sm:text-base lg:text-lg text-[var(--text-muted)] leading-relaxed mb-5 sm:mb-7 max-w-md">
+            Over 80 Books in English, Hindi, Bengali, and Russian.
           </p>
 
-          <div class="flex flex-wrap gap-3 mt-8">
-            <a
-              href="#library"
-              class="inline-flex items-center gap-2 px-7 py-3.5 bg-maroon-500 dark:bg-saffron-400 text-parchment-100 dark:text-maroon-800 rounded-xl font-sans text-sm font-semibold hover:opacity-90 transition shadow-lg"
-            >
-              Explore Books
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
-            </a>
-          </div>
+          <a
+            href="#library"
+            class="inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 bg-brand-500 hover:bg-brand-600 text-white rounded-full font-display text-xs sm:text-sm font-semibold tracking-wider uppercase transition shadow-md"
+          >
+            Explore Books
+          </a>
         </div>
 
-        <!-- Right: Books image -->
-        <div class="hidden lg:block mt-4">
+        <!-- Right: Book stack image -->
+        <div class="books-float-wrap">
           <img
             src="/images/books-hero.png"
             alt="Featured books by Srila Gour Govinda Swami Maharaja"
-            class="w-full max-w-md ml-auto drop-shadow-2xl"
+            class="books-float w-full max-w-[160px] sm:max-w-[240px] lg:max-w-[360px] ml-auto drop-shadow-2xl"
             loading="eager"
             fetchpriority="high"
           />
@@ -70,124 +54,155 @@ const searchIndex = books.map(b => ({ title: b.data.title, slug: b.slug, lang: b
     </div>
   </section>
 
-  <!-- ═══════ AUTHOR ═══════ -->
-  <section id="about" class="pt-4 pb-16 md:pb-20">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid md:grid-cols-[auto_1fr] gap-8 md:gap-12 items-center">
-        <!-- Portrait with gradient fade to background -->
-        <div class="relative w-72 sm:w-96 md:w-[28rem] shrink-0">
-          <img
-            src="/images/maharaja-bw.png"
-            class="w-full relative z-0"
-            alt="Srila Gour Govinda Swami Maharaja"
-            loading="eager"
-          />
-          <!-- Gradient overlay — exponential fade using mask (theme-independent) -->
-          <div
-            class="absolute inset-0 z-10 pointer-events-none"
-            style="background: var(--bg-primary); mask-image: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0.75) 88%, rgba(0,0,0,0.95) 94%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0.75) 88%, rgba(0,0,0,0.95) 94%, black 100%);"
-          ></div>
-        </div>
-
-        <!-- Text -->
-        <div>
-          <p class="font-sans text-xs tracking-[0.2em] uppercase text-[var(--accent)] mb-3 font-medium">The Author</p>
-          <h2 class="font-display text-2xl sm:text-3xl font-bold text-[var(--text-primary)] mb-4">
-            Sri Srimad<br>Gour Govinda Swami
-          </h2>
-          <p class="font-body text-base text-[var(--text-muted)] leading-[1.85] mb-6">
-            A visionary saint who spoke from the heart of the Srimad Bhagavatam, revealing the deepest secrets of pure devotional service. His books carry the same urgency and devotion with which he originally spoke.
-          </p>
-
-          <!-- Quote -->
-          <blockquote class="border-l-2 border-[var(--accent)] pl-5">
-            <p class="font-body text-lg italic text-[var(--text-muted)] leading-relaxed">
-              &ldquo;Unless you cry, Krsna won&rsquo;t hear you. You have to cry from the core of your heart.&rdquo;
-            </p>
-            <footer class="mt-3 font-sans text-xs text-[var(--accent)] tracking-wider uppercase">
-              &mdash; Srila Gour Govinda Swami
-            </footer>
-          </blockquote>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════ FEATURED BOOKS ═══════ -->
-  <section id="library" class="py-20 md:py-28 bg-[var(--bg-secondary)] parchment-texture">
+  <!-- ═══════ AUTHOR CARD ═══════ -->
+  <section id="about" class="pb-12 sm:pb-16">
     <div class="max-w-6xl mx-auto px-5 sm:px-8">
-      <div class="text-center mb-12">
-        <div class="ornament mb-6">
-          <PeacockLogo size={20} />
-        </div>
-        <p class="font-sans text-xs tracking-[0.25em] uppercase text-[var(--accent)] mb-4 font-medium">Featured</p>
-        <h2 class="font-display text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-3">
-          Essential Reading
-        </h2>
-        <p class="font-body text-base text-[var(--text-muted)] max-w-md mx-auto">
-          Begin with these titles, carefully selected from the collection.
-        </p>
-      </div>
-
-      <!-- Featured: 8 large cards -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-7 mb-16">
-        {featured.map(book => (
-          <div class="book-item" data-lang={book.data.language}>
-            <BookCard
-              slug={book.slug}
-              title={book.data.title}
-              language={book.data.language}
-              coverFront={book.data.coverFront}
-              price={book.data.price}
-              currency={book.data.currency}
+      <div class="author-card rounded-3xl p-8 sm:p-12 lg:p-16">
+        <div class="grid sm:grid-cols-[auto_1fr] gap-8 sm:gap-12 lg:gap-16 items-center">
+          <!-- Portrait -->
+          <div class="w-48 sm:w-64 lg:w-80 mx-auto sm:mx-0 shrink-0">
+            <img
+              src="/images/maharaja-bg-rm.png"
+              style="transform: scale(1.15);"
+              alt="Srila Gour Govinda Swami Maharaja"
+              class="w-full"
+              loading="eager"
             />
           </div>
-        ))}
+
+          <!-- Text -->
+          <div>
+            <p class="font-display text-xs tracking-[0.3em] uppercase text-brand-500 mb-3 font-semibold">The Author</p>
+            <h2 class="font-display text-2xl sm:text-3xl font-bold text-[var(--text-secondary)] leading-tight mb-1">
+              Sri Srimad
+            </h2>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--text-primary)] leading-tight mb-5">
+              Gour Govinda Swami
+            </h2>
+            <p class="font-display text-base sm:text-lg text-[var(--text-muted)] leading-relaxed mb-5 max-w-2xl">
+              A visionary spiritual leader from the heart of the Srimad Bhagavatam, revealing the deepest understanding of pure devotional service.
+            </p>
+            <a href="/biography/" class="inline-block font-display text-xs uppercase tracking-[0.25em] text-brand-500 hover:text-brand-600 font-semibold mb-4">
+              Read Biography →
+            </a>
+          
+          </div>
+        </div>
       </div>
     </div>
+  </section>
 
-  <!-- Browse all -->
-    <div class="max-w-6xl mx-auto px-5 sm:px-8 text-center pb-8">
-      <a
-        href="/books/"
-        class="inline-flex items-center gap-2 px-8 py-3.5 bg-maroon-500 dark:bg-saffron-400 text-parchment-100 dark:text-maroon-800 rounded-xl font-sans text-sm font-semibold hover:opacity-90 transition shadow-lg"
-      >
-        Browse All {books.length} Titles
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-      </a>
+  <!-- Ornament divider -->
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4">
+    <div class="ornament">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-[var(--accent)]">
+        <path d="M12 2L13.5 10.5L22 12L13.5 13.5L12 22L10.5 13.5L2 12L10.5 10.5L12 2Z" fill="currentColor" opacity="0.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ═══════ LANGUAGE PILLS + FEATURED BOOKS ═══════ -->
+  <section id="library" class="py-8 sm:py-12">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <!-- Language pills -->
+      <div class="flex justify-center mb-10">
+        <LanguagePills />
+      </div>
+
+      <!-- Book grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-7 mb-12">
+        {featured.map(book => (
+          <BookCard
+            slug={book.slug}
+            title={book.data.title}
+            language={book.data.language}
+            coverFront={book.data.coverFront}
+            price={book.data.price}
+            currency={book.data.currency}
+          />
+        ))}
+      </div>
+
+      <!-- View all -->
+      <div class="text-center">
+        <a
+          href="/books/"
+          class="inline-flex items-center gap-2 px-8 py-3 rounded-full font-display text-sm font-semibold tracking-wider uppercase border-2 border-[var(--border-strong)] text-[var(--text-primary)] hover:border-brand-500 hover:text-brand-500 transition"
+        >
+          View All
+        </a>
+      </div>
     </div>
   </section>
+
+  <!-- Ornament divider (lotus) -->
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-6">
+    <div class="ornament">
+      <svg width="42" height="22" viewBox="0 0 42 22" fill="none" class="text-[var(--accent)]" aria-hidden="true">
+        <path d="M21 20 C21 20 8 20 4 14 C9 14 13 12 15 8 C16 11 18 13 21 14 C24 13 26 11 27 8 C29 12 33 14 38 14 C34 20 21 20 21 20 Z" fill="currentColor" opacity="0.45" />
+        <path d="M21 14 C21 14 17 11 18 5 C20 7 21 10 21 14 Z M21 14 C21 14 25 11 24 5 C22 7 21 10 21 14 Z" fill="currentColor" opacity="0.55" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- ═══════ FEATURE CARDS (Amrita Vani + Calendar) ═══════ -->
+  <section class="pb-12 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <div class="grid grid-cols-2 gap-4 sm:gap-6">
+        <FeatureCard
+          href="/books/amrta-vani-audio-box-en/"
+          image="/images/products/amrta-vani/1775540326836.jpg"
+          label="Audio Collection"
+          title="Amrita Vani"
+          subtitle="Complete audio box of recorded lectures"
+        />
+        <FeatureCard
+          href="/books/srila-gour-govinda-swami-calendar-en/"
+          image="/images/books/srila-gour-govinda-swami-calendar-en/front.jpg"
+          label="Annual Release"
+          title="Calendar"
+          subtitle="Vaishnava calendar with festivals & tithis"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Ornament divider (diamond) -->
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-6">
+    <div class="ornament">
+      <svg width="36" height="10" viewBox="0 0 36 10" fill="none" class="text-[var(--accent)]" aria-hidden="true">
+        <path d="M8 5 L12 2 L16 5 L12 8 Z M18 5 L22 1 L26 5 L22 9 Z M27 5 L30 3 L33 5 L30 7 Z" fill="currentColor" opacity="0.5" />
+      </svg>
+    </div>
+  </div>
 
   <Footer />
   <Cart />
-
-  <!-- Language filter script (featured only) -->
-  <script is:inline>
-    document.querySelectorAll('.lang-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        const lang = tab.dataset.lang;
-
-        // Update active tab styles
-        document.querySelectorAll('.lang-tab').forEach(t => {
-          t.className = t.dataset.lang === lang
-            ? 'lang-tab px-5 py-2 rounded-full font-sans text-sm font-medium transition whitespace-nowrap bg-maroon-500 dark:bg-saffron-400 text-parchment-100 dark:text-maroon-800 shadow-md'
-            : 'lang-tab px-5 py-2 rounded-full font-sans text-sm font-medium transition whitespace-nowrap bg-[var(--bg-card)] text-[var(--text-muted)] border border-[var(--border)] hover:border-[var(--border-strong)]';
-        });
-
-        // Filter books
-        let visibleCount = 0;
-        document.querySelectorAll('.book-item').forEach(item => {
-          const show = lang === 'all' || item.dataset.lang === lang;
-          item.style.display = show ? '' : 'none';
-          if (show) visibleCount++;
-        });
-
-        // Update count
-        const countEl = document.getElementById('book-count');
-        if (countEl) {
-          countEl.textContent = `${visibleCount} title${visibleCount !== 1 ? 's' : ''}${lang !== 'all' ? ' in ' + lang : ''}`;
-        }
-      });
-    });
-  </script>
 </Base>
+
+<style>
+  .author-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(250,246,238,0.4));
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(74, 28, 21, 0.06);
+    backdrop-filter: blur(8px);
+  }
+
+  /* Subtle floating animation for hero books */
+  .books-float {
+    animation: bookFloat 5s ease-in-out;
+    transform-origin: center center;
+    will-change: transform;
+  }
+  @keyframes bookFloat {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(-1deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .books-float { animation: none; }
+  }
+</style>

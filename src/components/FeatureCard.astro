@@ -1,0 +1,49 @@
+---
+import SmartImage from './SmartImage.astro';
+
+interface Props {
+  href: string;
+  image: string;
+  label: string;
+  title: string;
+  subtitle?: string;
+  price?: string;
+}
+
+const { href, image, label, title, subtitle, price } = Astro.props;
+---
+
+<a href={href} class="feature-card group block rounded-2xl overflow-hidden border border-[var(--border-strong)] hover:border-brand-400 transition-all">
+  <div class="aspect-square overflow-hidden bg-[var(--bg-secondary)]">
+    <SmartImage
+      src={image}
+      alt={title}
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      loading="lazy"
+    />
+  </div>
+  <div class="p-5 sm:p-6 bg-[var(--bg-card)]">
+    <p class="font-display text-[10px] sm:text-xs tracking-[0.25em] uppercase text-brand-500 font-semibold mb-1.5">
+      {label}
+    </p>
+    <h3 class="font-display text-lg sm:text-xl font-bold text-[var(--text-primary)] leading-tight mb-1">
+      {title}
+    </h3>
+    {subtitle && (
+      <p class="font-display text-sm text-[var(--text-muted)] mb-2">{subtitle}</p>
+    )}
+    {price && (
+      <p class="font-display text-sm font-semibold text-[var(--text-primary)]">{price}</p>
+    )}
+  </div>
+</a>
+
+<style>
+  .feature-card {
+    background: var(--bg-card);
+    box-shadow: 0 4px 20px rgba(74, 28, 21, 0.04);
+  }
+  .feature-card:hover {
+    box-shadow: 0 8px 32px rgba(74, 28, 21, 0.08);
+  }
+</style>

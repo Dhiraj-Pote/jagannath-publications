@@ -1,0 +1,83 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import BookCard from '../../../components/BookCard.astro';
+import Cart from '../../../components/Cart.astro';
+import LanguagePills from '../../../components/LanguagePills.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const languages = [
+    { slug: 'english', label: 'English', native: 'English' },
+    { slug: 'hindi', label: 'Hindi', native: 'हिंदी' },
+    { slug: 'bengali', label: 'Bengali', native: 'বাংলা' },
+    { slug: 'russian', label: 'Russian', native: 'Русский' },
+  ];
+  return languages.map(l => ({
+    params: { lang: l.slug },
+    props: { languageLabel: l.label, languageNative: l.native },
+  }));
+}
+
+const { lang } = Astro.params;
+const { languageLabel, languageNative } = Astro.props;
+
+const allBooks = await getCollection('books');
+const books = allBooks
+  .filter(b => b.data.language === languageLabel)
+  .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100));
+
+const htmlLang = {
+  english: 'en',
+  hindi: 'hi',
+  bengali: 'bn',
+  russian: 'ru',
+}[lang] ?? 'en';
+---
+
+<Base title={`${languageLabel} Books`} lang={htmlLang}>
+  <Header />
+
+  <main class="pt-28 pb-20">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <!-- Language pills -->
+      <div class="flex justify-center mb-10">
+        <LanguagePills active={lang} />
+      </div>
+
+      <!-- Heading -->
+      <div class="text-center mb-10">
+        <h1 class="font-display text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-2">
+          {languageNative} {languageNative !== languageLabel && <span class="text-[var(--text-muted)]">({languageLabel})</span>}
+        </h1>
+        <p class="font-body text-sm text-[var(--text-muted)]">
+          {books.length} {books.length === 1 ? 'title' : 'titles'}
+        </p>
+      </div>
+
+      <!-- Book grid -->
+      {books.length > 0 ? (
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-7">
+          {books.map(book => (
+            <BookCard
+              slug={book.slug}
+              title={book.data.title}
+              language={book.data.language}
+              coverFront={book.data.coverFront}
+              price={book.data.price}
+              currency={book.data.currency}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="text-center font-body text-[var(--text-muted)] py-12">
+          No books available yet in this language. Check back soon.
+        </p>
+      )}
+    </div>
+  </main>
+
+  <Footer />
+  <Cart />
+</Base>

@@ -4,161 +4,49 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import BookCard from '../../components/BookCard.astro';
 import Cart from '../../components/Cart.astro';
+import LanguagePills from '../../components/LanguagePills.astro';
 import { getCollection } from 'astro:content';
 
 const allBooks = await getCollection('books');
 const books = allBooks.sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100));
-const languages = [...new Set(books.map(b => b.data.language))];
-const searchIndex = books.map(b => ({ title: b.data.title, slug: b.slug, lang: b.data.language }));
 ---
 
-<Base title="All Books — Jagannath Publications">
+<Base title="All Books">
   <Header />
 
-  <section class="py-12 md:py-20">
+  <main class="pt-28 pb-20">
     <div class="max-w-6xl mx-auto px-5 sm:px-8">
-
-      <!-- Header + Search -->
-      <div class="text-center mb-10">
-        <p class="font-sans text-xs tracking-[0.25em] uppercase text-[var(--accent)] mb-4 font-medium">Collection</p>
-        <h1 class="font-display text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-3">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="font-display text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-2">
           All {books.length} Titles
         </h1>
-        <p class="font-body text-base text-[var(--text-muted)] max-w-md mx-auto mb-6">
-          The complete catalog of sacred literature by Srila Gour Govinda Swami Maharaja.
+        <p class="font-display text-sm text-[var(--text-muted)]">
+          The complete catalog of sacred literature.
         </p>
-
-        <!-- Search bar -->
-        <div class="relative max-w-md mx-auto">
-          <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <input
-            type="text"
-            id="book-search"
-            placeholder="Search by title..."
-            autocomplete="off"
-            class="w-full pl-11 pr-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] text-[var(--text-primary)] font-sans text-sm outline-none focus:border-[var(--accent)] transition"
-          />
-          <div id="book-search-results" class="absolute top-full left-0 right-0 mt-1 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl shadow-xl z-50 overflow-hidden" style="display:none"></div>
-        </div>
       </div>
 
-      <!-- Language tabs -->
-      <div class="flex justify-center gap-2 sm:gap-3 mb-10 overflow-x-auto hide-scrollbar px-2" id="language-tabs">
-        <button
-          class="lang-tab px-5 py-2 rounded-full font-sans text-sm font-medium transition whitespace-nowrap bg-maroon-500 dark:bg-saffron-400 text-parchment-100 dark:text-maroon-800 shadow-md"
-          data-lang="all"
-        >
-          All
-        </button>
-        {languages.map(lang => (
-          <button
-            class="lang-tab px-5 py-2 rounded-full font-sans text-sm font-medium transition whitespace-nowrap bg-[var(--bg-card)] text-[var(--text-muted)] border border-[var(--border)] hover:border-[var(--border-strong)]"
-            data-lang={lang}
-          >
-            {lang} <span class="opacity-50 ml-0.5">{books.filter(b => b.data.language === lang).length}</span>
-          </button>
-        ))}
+      <!-- Language pills -->
+      <div class="flex justify-center mb-10">
+        <LanguagePills />
       </div>
-
-      <!-- Book count -->
-      <p id="book-count" class="font-sans text-sm text-[var(--accent)] opacity-70 text-center mb-8">
-        {books.length} titles
-      </p>
 
       <!-- Book grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-7" id="book-grid">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-7">
         {books.map(book => (
-          <div class="book-item" data-lang={book.data.language}>
-            <BookCard
-              slug={book.slug}
-              title={book.data.title}
-              language={book.data.language}
-              coverFront={book.data.coverFront}
-              price={book.data.price}
-              currency={book.data.currency}
-            />
-          </div>
+          <BookCard
+            slug={book.slug}
+            title={book.data.title}
+            language={book.data.language}
+            coverFront={book.data.coverFront}
+            price={book.data.price}
+            currency={book.data.currency}
+          />
         ))}
       </div>
     </div>
-  </section>
+  </main>
 
   <Footer />
   <Cart />
-
-  <!-- Book search autocomplete -->
-  <script is:inline define:vars={{ searchIndex }}>
-    (function() {
-      var input = document.getElementById('book-search');
-      var results = document.getElementById('book-search-results');
-      if (!input || !results) return;
-
-      input.addEventListener('input', function() {
-        var q = this.value.toLowerCase().trim();
-        if (q.length < 2) { results.style.display = 'none'; return; }
-
-        var matches = searchIndex
-          .map(function(b) {
-            var t = b.title.toLowerCase();
-            var s = 0;
-            if (t === q) s = 100;
-            else if (t.startsWith(q)) s = 80;
-            else if (t.includes(q)) s = 60;
-            else {
-              var words = q.split(/\s+/);
-              if (words.every(function(w) { return t.includes(w); })) s = 40;
-            }
-            return { title: b.title, slug: b.slug, lang: b.lang, s: s };
-          })
-          .filter(function(r) { return r.s > 0; })
-          .sort(function(a, b) { return b.s - a.s; })
-          .slice(0, 8);
-
-        if (!matches.length) {
-          results.innerHTML = '<div style="padding:12px 16px;font-size:13px;color:var(--text-muted)">No books found</div>';
-          results.style.display = 'block';
-          return;
-        }
-
-        results.innerHTML = matches.map(function(r) {
-          return '<a href="/books/' + r.slug + '/" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;text-decoration:none;color:var(--text-primary);transition:background .1s;font-size:14px" onmouseenter="this.style.background=\'var(--bg-secondary)\'" onmouseleave="this.style.background=\'transparent\'">' +
-            '<span style="font-weight:600">' + r.title + '</span>' +
-            '<span style="font-size:11px;color:var(--text-muted)">' + r.lang + '</span>' +
-          '</a>';
-        }).join('');
-        results.style.display = 'block';
-      });
-
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('#book-search') && !e.target.closest('#book-search-results')) {
-          results.style.display = 'none';
-        }
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') results.style.display = 'none';
-      });
-    })();
-  </script>
-
-  <!-- Language filter -->
-  <script is:inline>
-    document.querySelectorAll('.lang-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        const lang = tab.dataset.lang;
-        document.querySelectorAll('.lang-tab').forEach(t => {
-          t.className = t.dataset.lang === lang
-            ? 'lang-tab px-5 py-2 rounded-full font-sans text-sm font-medium transition whitespace-nowrap bg-maroon-500 dark:bg-saffron-400 text-parchment-100 dark:text-maroon-800 shadow-md'
-            : 'lang-tab px-5 py-2 rounded-full font-sans text-sm font-medium transition whitespace-nowrap bg-[var(--bg-card)] text-[var(--text-muted)] border border-[var(--border)] hover:border-[var(--border-strong)]';
-        });
-        let visibleCount = 0;
-        document.querySelectorAll('.book-item').forEach(item => {
-          const show = lang === 'all' || item.dataset.lang === lang;
-          item.style.display = show ? '' : 'none';
-          if (show) visibleCount++;
-        });
-        const countEl = document.getElementById('book-count');
-        if (countEl) countEl.textContent = `${visibleCount} title${visibleCount !== 1 ? 's' : ''}${lang !== 'all' ? ' in ' + lang : ''}`;
-      });
-    });
-  </script>
 </Base>

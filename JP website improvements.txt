@@ -1,0 +1,4 @@
+One small gap: You're missing dev tooling. Consider adding:
+
+prettier + prettier-plugin-astro for consistent formatting
+eslint for catching issues

@@ -1,0 +1,30 @@
+---
+interface Props {
+  active?: string; // 'english' | 'hindi' | 'bengali' | 'russian' | undefined
+}
+
+const { active } = Astro.props;
+
+const languages = [
+  { slug: 'english', label: 'ENGLISH' },
+  { slug: 'russian', label: 'РУССКИЙ' },
+  { slug: 'hindi', label: 'हिंदी' },
+  { slug: 'bengali', label: 'বাংলা' },
+];
+---
+
+<div class="flex flex-wrap justify-center gap-2 sm:gap-3">
+  {languages.map(l => (
+    <a
+      href={`/books/language/${l.slug}/`}
+      class:list={[
+        'lang-pill px-6 py-2 rounded-full font-display text-sm font-medium transition-all whitespace-nowrap border',
+        active === l.slug
+          ? 'bg-brand-500 text-white border-brand-500 shadow-md'
+          : 'bg-transparent text-[var(--text-primary)] border-[var(--border-strong)] hover:border-brand-400 hover:text-brand-500',
+      ]}
+    >
+      {l.label}
+    </a>
+  ))}
+</div>

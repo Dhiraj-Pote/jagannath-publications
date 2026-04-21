@@ -1,0 +1,260 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Cart from '../components/Cart.astro';
+
+const updated = 'April 2026';
+---
+
+<Base
+  title="Shipping Policy"
+  description="Shipping rates, transit times, and return policy for orders placed with Jagannath Publications."
+>
+  <Header />
+
+  <main class="pt-28 pb-20">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8">
+      <!-- Hero -->
+      <div class="text-center mb-10">
+        <p class="font-display text-xs tracking-[0.3em] uppercase text-brand-500 font-semibold mb-3">
+          Shipping Policy
+        </p>
+        <h1 class="font-display text-4xl sm:text-5xl font-bold text-[var(--text-primary)] mb-4">
+          Books, Packed With Care
+        </h1>
+        <p class="font-display text-sm text-[var(--text-muted)]">Last updated: {updated}</p>
+      </div>
+
+      <!-- Ornament -->
+      <div class="ornament mb-10">
+        <svg width="36" height="10" viewBox="0 0 36 10" fill="none" class="text-[var(--accent)]" aria-hidden="true">
+          <path d="M8 5 L12 2 L16 5 L12 8 Z M18 5 L22 1 L26 5 L22 9 Z M27 5 L30 3 L33 5 L30 7 Z" fill="currentColor" opacity="0.5"/>
+        </svg>
+      </div>
+
+      <!-- Quick-facts grid -->
+      <div class="facts-grid mb-12">
+        <div class="fact">
+          <div class="fact-icon">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-6 0H3.375c-.621 0-1.125-.504-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125V10.5a3.75 3.75 0 00-.615-2.062L17.5 6.187a3 3 0 00-2.121-.879H13.5M4.875 14.25h4.5"/>
+            </svg>
+          </div>
+          <h4>All-India Dispatch</h4>
+          <p>From Bhubaneswar via India Post or private courier</p>
+        </div>
+
+        <div class="fact">
+          <div class="fact-icon">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h4>5 – 10 Days</h4>
+          <p>Typical transit time within India</p>
+        </div>
+
+        <div class="fact">
+          <div class="fact-icon">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/>
+            </svg>
+          </div>
+          <h4>International</h4>
+          <p>By request — we ship worldwide on enquiry</p>
+        </div>
+      </div>
+
+      <article class="legal-content space-y-7">
+        <section>
+          <h2>How Orders Work</h2>
+          <p>
+            Add titles to your bag and click <em>Order via WhatsApp</em> or <em>Order via
+            Email</em>. We'll confirm availability, share the total with shipping, and send
+            payment details (UPI, bank transfer, or international options). Dispatch begins
+            once payment is received.
+          </p>
+        </section>
+
+        <section>
+          <h2>Within India</h2>
+          <ul>
+            <li><strong>Carrier</strong> — India Post Speed Post or private courier, by book weight</li>
+            <li><strong>Transit</strong> — Usually 5 – 10 business days; remote locations may take longer</li>
+            <li><strong>Tracking</strong> — Shared over WhatsApp or email once dispatched</li>
+            <li><strong>Rate</strong> — Calculated on total package weight; typically ₹60 – ₹250 depending on book count</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>International Orders</h2>
+          <p>
+            Many of our titles are regularly sent to devotees abroad. Because international
+            rates vary widely by weight and destination, please message us with your
+            complete list of titles and full address. We will send a shipping quote within
+            24 – 48 hours.
+          </p>
+        </section>
+
+        <section>
+          <h2>Packing</h2>
+          <p>
+            All books are packed in corrugated bubble sleeves inside rigid outer cartons.
+            Multi-volume sets are shrink-wrapped together to prevent shifting during
+            transit. Care is taken that no dust jacket, corner, or spine is damaged in
+            shipment.
+          </p>
+        </section>
+
+        <section>
+          <h2>Damaged or Missing Items</h2>
+          <p>
+            If your package arrives damaged, please photograph the parcel and contents
+            <em>before</em> fully unpacking and send the pictures to us within 48 hours of
+            delivery. We will replace the damaged title or refund its value. Claims beyond
+            this window cannot always be honoured due to courier policies.
+          </p>
+        </section>
+
+        <section>
+          <h2>Returns & Refunds</h2>
+          <p>
+            Books are non-returnable as a general policy — they are sacred scripture, and
+            each copy is an offering. However, if you received the wrong title or a
+            manufacturing defect (printing error, binding failure), we will replace it free
+            of charge upon verification.
+          </p>
+        </section>
+
+        <section>
+          <h2>Bulk & Temple Orders</h2>
+          <p>
+            Temples, distributors, and festival committees receive preferential pricing and
+            dedicated support. Please write to us with the list and your location and we
+            will arrange the most economical dispatch.
+          </p>
+        </section>
+      </article>
+
+      <!-- CTA -->
+      <div class="text-center mt-12 pt-8 border-t border-[var(--border)]">
+        <p class="font-display text-sm text-[var(--text-muted)] mb-4">
+          Still have a question about your order?
+        </p>
+        <a
+          href="/contact/"
+          class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-display text-sm font-semibold tracking-wider uppercase border-2 border-[var(--border-strong)] text-[var(--text-primary)] hover:border-brand-500 hover:text-brand-500 transition"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <Cart />
+</Base>
+
+<style>
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.875rem;
+  }
+  @media (min-width: 640px) {
+    .facts-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .fact {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    text-align: center;
+    transition: all 0.25s ease;
+  }
+  .fact:hover {
+    border-color: var(--brand);
+    transform: translateY(-2px);
+  }
+  .fact-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(201, 169, 110, 0.1));
+    color: var(--brand);
+    margin-bottom: 0.75rem;
+  }
+  .fact h4 {
+    font-family: 'Gatwick', Georgia, serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+  .fact p {
+    font-family: 'Gatwick', Georgia, serif;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .legal-content section h2 {
+    font-family: 'Gatwick', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.375rem;
+    color: var(--text-primary);
+    margin-bottom: 0.625rem;
+    position: relative;
+    padding-left: 1rem;
+  }
+  .legal-content section h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.375rem;
+    bottom: 0.375rem;
+    width: 3px;
+    background: linear-gradient(180deg, var(--brand), var(--accent));
+    border-radius: 2px;
+  }
+  .legal-content section p,
+  .legal-content section ul {
+    font-family: 'Gatwick', Georgia, serif;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+  .legal-content section em {
+    font-style: italic;
+    color: var(--text-primary);
+  }
+  .legal-content section ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.75rem;
+  }
+  .legal-content section ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .legal-content section ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    top: 0.25em;
+    color: var(--brand);
+    opacity: 0.55;
+    font-size: 0.75em;
+  }
+  .legal-content section ul li strong {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+</style>

@@ -1,4 +1,6 @@
 ---
+import SmartImage from './SmartImage.astro';
+
 interface Props {
   slug: string;
   title: string;
@@ -17,35 +19,37 @@ const priceDisplay = price
 const safeTitle = title.replace(/'/g, "\\'");
 ---
 
-<div class="book-card" style="display:flex;flex-direction:column;height:100%">
-  <!-- Cover — hover only affects the image inside -->
+<div class="book-card flex flex-col h-full">
+  <!-- Cover -->
   <a href={`/books/${slug}/`} class="book-cover-link">
-    <img
+    <SmartImage
       src={coverFront}
       alt={title}
       class="book-cover-img"
       loading="lazy"
+      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
     />
   </a>
-  <!-- Info — static, grows to push button down -->
-  <a href={`/books/${slug}/`} class="block flex-1">
-    <h3 class="font-display text-sm sm:text-base font-bold text-[var(--text-secondary)] leading-snug hover:text-[var(--accent)] transition-colors">
+
+  <!-- Info -->
+  <a href={`/books/${slug}/`} class="block mt-3 flex-1">
+    <h3 class="font-display text-sm sm:text-base font-bold text-[var(--text-primary)] leading-snug hover:text-brand-500 transition-colors line-clamp-2">
       {title}
     </h3>
-    <div class="flex items-center gap-2 mt-1">
-      <span class="font-sans text-xs text-[var(--text-muted)]">{language}</span>
-      {priceDisplay && (
-        <span class="font-sans text-xs text-[var(--accent)] font-medium">{priceDisplay}</span>
-      )}
+    <div class="flex items-center gap-2 mt-1 font-display text-xs text-[var(--text-muted)]">
+      <span>{language.toUpperCase()}</span>
+      {priceDisplay && <span>| {priceDisplay}</span>}
     </div>
   </a>
-  <!-- Button pinned to bottom -->
+
+  <!-- Add to Bag button (mirrors Canva "ADD TO BAG" / "Added!" states) -->
   <button
     data-cart-btn={slug}
-    onclick={`cartAdd('${slug}', '${safeTitle}', '${language}'); updateCartButtons();`}
-    class="mt-2 w-full py-2 rounded-lg font-sans text-xs font-medium border transition-all border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+    data-title={title}
+    data-language={language}
+    class="add-to-bag-btn mt-3 w-full py-2 rounded-full font-display text-xs font-semibold tracking-wide transition-all border-2 border-[var(--border-strong)] text-[var(--text-primary)] bg-transparent hover:border-brand-500 hover:text-brand-500"
   >
-    + Add to List
+    ADD TO BAG
   </button>
 </div>
 
@@ -56,8 +60,7 @@ const safeTitle = title.replace(/'/g, "\\'");
     aspect-ratio: 2/3;
     border-radius: 0.75rem;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,.12);
-    margin-bottom: 0.75rem;
+    box-shadow: 0 4px 14px rgba(74, 28, 21, 0.12);
     background: var(--bg-secondary);
   }
   .book-cover-img {
@@ -67,16 +70,12 @@ const safeTitle = title.replace(/'/g, "\\'");
     transition: transform 0.5s ease;
   }
   .book-cover-link:hover .book-cover-img {
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
-  .book-cover-link::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: transparent;
-    transition: background 0.3s;
-  }
-  .book-cover-link:hover::after {
-    background: rgba(0,0,0,0.08);
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 </style>

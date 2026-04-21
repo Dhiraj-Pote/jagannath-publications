@@ -4,53 +4,32 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  lang?: string;
 }
 
 const {
   title = 'Jagannath Publications',
-  description = 'Discover the sacred literature of Srila Gour Govinda Swami Maharaja. Browse and order books in English, Hindi, Bengali, Russian, and more.',
+  description = 'The sacred literature of Srila Gour Govinda Swami Maharaja. Over 80 titles in English, Hindi, Bengali, and Russian.',
+  lang = 'en',
 } = Astro.props;
 
-const fullTitle = title === 'Jagannath Publications'
-  ? title
-  : `${title} — Jagannath Publications`;
+const fullTitle =
+  title === 'Jagannath Publications' ? title : `${title} — Jagannath Publications`;
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{fullTitle}</title>
-  <meta name="description" content={description}>
-  <meta property="og:title" content={fullTitle}>
-  <meta property="og:description" content={description}>
-  <meta property="og:type" content="website">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <script is:inline>
-    // Restore theme preference before paint to prevent flash
-    (function() {
-      const stored = localStorage.getItem('jp-theme');
-      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
-    })();
-  </script>
-</head>
-<body class="font-body antialiased parchment-texture min-h-screen flex flex-col">
-  <slot />
-  <script is:inline>
-    // Theme toggle — instant switch
-    window.toggleTheme = function() {
-      var html = document.documentElement;
-      var isDark = html.classList.toggle('dark');
-      localStorage.setItem('jp-theme', isDark ? 'dark' : 'light');
-      // Update celestial if available
-      if (window._celestialUpdate) window._celestialUpdate();
-    };
-  </script>
-</body>
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="antialiased min-h-screen flex flex-col">
+    <slot />
+  </body>
 </html>

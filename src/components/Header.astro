@@ -1,168 +1,407 @@
 ---
-import PeacockLogo from './PeacockLogo.astro';
-import ThemeToggle from './ThemeToggle.astro';
 import { getCollection } from 'astro:content';
 
 const allBooks = await getCollection('books');
-const searchIndex = allBooks.map(b => ({ title: b.data.title, slug: b.slug, lang: b.data.language }));
+const searchIndex = allBooks
+  .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100))
+  .map((b) => ({
+    title: b.data.title,
+    subtitle: b.data.subtitle ?? '',
+    slug: b.slug,
+    lang: b.data.language,
+    cover: b.data.coverFront,
+  }));
 ---
 
-<nav
-  class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-md border-b border-[var(--border)]"
-  id="navbar"
-  style="background: color-mix(in srgb, var(--bg-primary) 85%, transparent);"
->
-  <div class="max-w-6xl mx-auto px-4 sm:px-8">
-    <div class="flex items-center justify-between py-3 sm:py-4">
-      <!-- Logo -->
-      <a href="/" class="flex items-center gap-2.5 group shrink-0">
-        <PeacockLogo size={36} class="transition-transform group-hover:scale-110" />
-        <div class="leading-tight">
-          <span class="font-display text-lg sm:text-xl font-bold text-[var(--text-secondary)] block" style="letter-spacing:0.04em">
-            Jagannath
-          </span>
-          <span class="font-sans text-[9.5px] sm:text-[10.5px] font-bold uppercase text-[var(--text-muted)] block" style="letter-spacing:0.32em">
-            Publications
-          </span>
-        </div>
-      </a>
-
-      <!-- Center: Search bar -->
-      <div class="hidden sm:flex flex-1 max-w-xs mx-6 lg:mx-12">
-        <div class="relative w-full">
-          <input
-            type="text"
-            placeholder="search.."
-            id="nav-search"
-            autocomplete="off"
-            class="w-full pl-4 pr-10 py-2 rounded-full border border-[var(--border-strong)] bg-[var(--bg-card)] text-sm font-sans text-[var(--text-primary)] placeholder:text-[var(--text-subtle)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition"
+<div class="fixed top-0 left-0 right-0 z-50">
+  <nav id="navbar" class="glass-nav w-full border-b border-white/40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center py-2.5 sm:py-3 gap-4 sm:gap-6">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-3 group shrink-0">
+          <img
+            src="/images/logo-books.png"
+            alt="Jagannath Publications"
+            class="w-12 h-12 sm:w-14 sm:h-14 object-contain transition-transform group-hover:scale-105"
           />
-          <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)] pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-          </svg>
-          <div id="nav-search-results" class="absolute top-full left-0 right-0 mt-2 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl shadow-xl z-50 overflow-hidden" style="display:none"></div>
+          <div class="leading-tight">
+            <span class="font-display text-xl sm:text-2xl font-bold text-black block">
+              Jagannath
+            </span>
+            <span class="font-display text-sm sm:text-base text-black block">
+              Publications
+            </span>
+          </div>
+        </a>
+
+        <!-- Spacer to push search + icons to the right -->
+        <div class="flex-1"></div>
+
+        <!-- Search bar (desktop) -->
+        <div class="hidden sm:flex w-full max-w-md">
+          <div class="relative w-full">
+            <input
+              type="text"
+              placeholder="Search books…"
+              id="nav-search"
+              autocomplete="off"
+              class="nav-search-input w-full pl-5 pr-11 py-2.5 rounded-full border border-[var(--border-strong)] bg-white/60 text-base focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition"
+            />
+            <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+            <div id="nav-search-results" class="search-results absolute top-full left-0 right-0 mt-2 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl shadow-xl z-50 overflow-hidden" style="display:none"></div>
+          </div>
         </div>
-      </div>
 
-      <!-- Right side icons -->
-      <div class="flex items-center gap-3 sm:gap-4 shrink-0">
-        <ThemeToggle />
+        <!-- Right side icons -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0 ml-3 sm:ml-4">
+          <!-- Cart (shopping bag) -->
+          <button
+            onclick="toggleCart()"
+            class="relative p-1.5 hover:opacity-80 transition"
+            aria-label="Open cart"
+          >
+            <img src="/images/bag.png" alt="" class="w-11 h-11 sm:w-12 sm:h-12 object-contain" />
+            <span
+              id="cart-badge"
+              class="absolute -top-0.5 -right-0.5 min-w-[22px] h-[22px] flex items-center justify-center text-[12px] font-bold bg-red-500 text-white rounded-full px-1 hidden shadow-sm"
+            >0</span>
+          </button>
 
-        <!-- Cart -->
-        <button
-          onclick="toggleCart()"
-          class="relative p-2 text-[var(--text-primary)] hover:text-[var(--accent)] transition"
-          aria-label="Open cart"
-        >
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8.25 20.25a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3ZM15.75 20.25a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/>
-            <path fill-rule="evenodd" d="M2.25 3.75a.75.75 0 0 1 .75-.75h.803a1.5 1.5 0 0 1 1.477 1.242l.29 1.758h13.68a.75.75 0 0 1 .728.932l-1.5 6a.75.75 0 0 1-.728.568H7.5a.75.75 0 0 1-.728-.568L5.06 5.25H3a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"/>
-          </svg>
-          <span
-            id="cart-badge"
-            class="absolute -top-0.5 -right-0.5 min-w-[16px] h-[16px] flex items-center justify-center text-[9px] font-bold bg-red-500 text-white rounded-full px-1 hidden"
-          >0</span>
-        </button>
-
-        <!-- Hamburger menu -->
-        <button
-          class="p-2 text-[var(--text-primary)] hover:text-[var(--accent)] transition"
-          onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
-          aria-label="Menu"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-        </button>
+          <!-- Hamburger menu -->
+          <button
+            id="menu-toggle"
+            class="p-2 text-black hover:text-[var(--accent)] transition"
+            aria-label="Menu"
+          >
+            <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
+  </nav>
 
-    <!-- Dropdown menu -->
-    <div id="mobile-menu" class="hidden pb-4 border-t border-[var(--border)]">
-      <!-- Mobile search -->
-      <div class="sm:hidden pt-3 pb-2">
+  <!-- Floating glass dropdown menu -->
+  <div id="mobile-menu" class="menu-hidden absolute right-0 -mt-1 w-64 origin-top-right">
+    <div class="glass-menu rounded-2xl py-2">
+      <!-- Mobile search (only on small screens) -->
+      <div class="sm:hidden px-4 pt-2 pb-3 border-b border-black/10">
         <div class="relative">
           <input
             type="text"
-            placeholder="search.."
-            class="w-full pl-4 pr-10 py-2 rounded-full border border-[var(--border-strong)] bg-[var(--bg-card)] text-sm font-sans text-[var(--text-primary)] placeholder:text-[var(--text-subtle)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition"
+            id="nav-search-mobile"
+            autocomplete="off"
+            placeholder="Search books…"
+            class="nav-search-input w-full pl-4 pr-10 py-2 rounded-full border border-[var(--border-strong)] bg-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition"
           />
-          <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
+          <div id="nav-search-results-mobile" class="search-results mt-2 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl shadow-md overflow-hidden" style="display:none"></div>
         </div>
       </div>
-      <div class="flex flex-col gap-3 pt-2 font-sans text-sm text-[var(--text-muted)]">
-        <a href="/books/" class="hover:text-[var(--text-secondary)] transition py-1">Books</a>
-        <a href="/#about" class="hover:text-[var(--text-secondary)] transition py-1">About</a>
-        <a href="/#library" class="hover:text-[var(--text-secondary)] transition py-1">Featured</a>
-      </div>
+      <nav class="flex flex-col text-center font-display text-base text-black">
+        <a href="/books/" class="menu-item px-6 py-3 hover:bg-white/50 transition">Shop</a>
+        <a href="/about/" class="menu-item px-6 py-3 hover:bg-white/50 transition">About Us</a>
+        <a href="/biography/" class="menu-item px-6 py-3 hover:bg-white/50 transition">Biography</a>
+        <a href="/contact/" class="menu-item px-6 py-3 hover:bg-white/50 transition">Contact Us</a>
+        <a href="/disclaimer/" class="menu-item px-6 py-3 hover:bg-white/50 transition">Disclaimer</a>
+      </nav>
     </div>
   </div>
-</nav>
+</div>
+
+<style>
+  .glass-nav {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.61) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow:
+      0 8px 32px rgba(31, 38, 135, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .glass-nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 40%,
+      transparent 60%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glass-nav > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-search-input {
+    font-family: 'Gatwick', Georgia, serif;
+    color: #000;
+  }
+  .nav-search-input::placeholder {
+    color: #000;
+    opacity: 0.7;
+    font-family: 'Gatwick', Georgia, serif;
+    font-weight: 350;
+  }
+
+  .glass-menu {
+    background: linear-gradient(
+      135deg,
+      rgba(253, 251, 247, 0.92) 0%,
+      rgba(250, 246, 238, 0.88) 100%
+    );
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow:
+      0 12px 40px rgba(74, 28, 21, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .menu-item {
+    font-family: 'Gatwick', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  /* Animated dropdown */
+  #mobile-menu {
+    transition:
+      opacity 0.22s ease-out,
+      transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: top right;
+  }
+  #mobile-menu.menu-hidden {
+    opacity: 0;
+    transform: scale(0.85) translateY(-8px);
+    pointer-events: none;
+  }
+  #mobile-menu.menu-visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Search result items */
+  .search-results :global(.search-result) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: background 0.12s ease;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .search-results :global(.search-result:last-child) {
+    border-bottom: 0;
+  }
+  .search-results :global(.search-result:hover) {
+    background: var(--bg-secondary);
+  }
+  .search-results :global(.search-result-cover) {
+    width: 32px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 3px;
+    background: var(--bg-secondary);
+    flex-shrink: 0;
+  }
+  .search-results :global(.search-result-info) {
+    flex: 1;
+    min-width: 0;
+  }
+  .search-results :global(.search-result-title) {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .search-results :global(.search-result-lang) {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 1px;
+  }
+  .search-results :global(.search-empty) {
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+</style>
 
 <script is:inline define:vars={{ searchIndex }}>
   // Navbar shadow on scroll
-  var nav = document.getElementById('navbar');
-  window.addEventListener('scroll', function() {
-    nav.style.boxShadow = window.scrollY > 20 ? '0 1px 8px var(--shadow)' : 'none';
-  });
+  (function () {
+    var nav = document.getElementById('navbar');
+    window.addEventListener('scroll', function () {
+      if (!nav) return;
+      nav.style.boxShadow = window.scrollY > 20
+        ? '0 8px 24px var(--shadow-strong)'
+        : '0 4px 12px var(--shadow)';
+    });
+  })();
 
-  // Autocomplete search
-  function setupSearch(inputId, resultsId) {
+  // ── Search (unified for desktop + mobile) ──
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function scoreBook(book, query) {
+    var q = query.toLowerCase().trim();
+    if (!q) return 0;
+    var title = book.title.toLowerCase();
+    var subtitle = (book.subtitle || '').toLowerCase();
+    var haystack = title + ' ' + subtitle + ' ' + book.lang.toLowerCase();
+
+    if (title === q) return 100;
+    if (title.startsWith(q)) return 85;
+    if (title.includes(q)) return 70;
+    if (subtitle.includes(q)) return 60;
+
+    // All words present somewhere
+    var words = q.split(/\s+/).filter(Boolean);
+    if (words.length > 1 && words.every(function (w) { return haystack.includes(w); })) {
+      return 45;
+    }
+    return 0;
+  }
+
+  function renderResult(r) {
+    var cover = r.cover ? escapeHtml(r.cover) : '';
+    var img = cover
+      ? '<img class="search-result-cover" src="' + cover + '" alt="" loading="lazy">'
+      : '<div class="search-result-cover"></div>';
+    return (
+      '<a class="search-result" href="/books/' + escapeHtml(r.slug) + '/">' +
+        img +
+        '<div class="search-result-info">' +
+          '<div class="search-result-title">' + escapeHtml(r.title) + '</div>' +
+          '<div class="search-result-lang">' + escapeHtml(r.lang) + '</div>' +
+        '</div>' +
+      '</a>'
+    );
+  }
+
+  function attachSearch(inputId, resultsId) {
     var input = document.getElementById(inputId);
     var results = document.getElementById(resultsId);
     if (!input || !results) return;
 
-    input.addEventListener('input', function() {
-      var q = this.value.toLowerCase().trim();
-      if (q.length < 2) { results.style.display = 'none'; return; }
+    function close() {
+      results.style.display = 'none';
+    }
 
-      var matches = searchIndex
-        .map(function(b) {
-          var t = b.title.toLowerCase();
-          var s = 0;
-          if (t === q) s = 100;
-          else if (t.startsWith(q)) s = 80;
-          else if (t.includes(q)) s = 60;
-          else {
-            var words = q.split(/\s+/);
-            if (words.every(function(w) { return t.includes(w); })) s = 40;
-          }
-          return { title: b.title, slug: b.slug, lang: b.lang, s: s };
-        })
-        .filter(function(r) { return r.s > 0; })
-        .sort(function(a, b) { return b.s - a.s; })
-        .slice(0, 6);
-
-      if (!matches.length) {
-        results.innerHTML = '<div style="padding:12px 16px;font-size:13px;color:var(--text-muted)">No books found</div>';
-        results.style.display = 'block';
+    function runSearch() {
+      var q = input.value;
+      if (!q || q.trim().length < 2) {
+        close();
         return;
       }
+      var matches = searchIndex
+        .map(function (b) { return { b: b, s: scoreBook(b, q) }; })
+        .filter(function (r) { return r.s > 0; })
+        .sort(function (a, b) { return b.s - a.s; })
+        .slice(0, 6)
+        .map(function (r) { return r.b; });
 
-      results.innerHTML = matches.map(function(r) {
-        return '<a href="/books/' + r.slug + '/" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;text-decoration:none;color:var(--text-primary);transition:background .1s;font-size:14px" onmouseenter="this.style.background=\'var(--bg-secondary)\'" onmouseleave="this.style.background=\'transparent\'">' +
-          '<span style="font-weight:600">' + r.title + '</span>' +
-          '<span style="font-size:11px;color:var(--text-muted)">' + r.lang + '</span>' +
-        '</a>';
-      }).join('');
+      if (!matches.length) {
+        results.innerHTML = '<div class="search-empty">No books found</div>';
+      } else {
+        results.innerHTML = matches.map(renderResult).join('');
+      }
       results.style.display = 'block';
+    }
+
+    input.addEventListener('input', runSearch);
+    input.addEventListener('focus', function () { if (input.value.trim().length >= 2) runSearch(); });
+
+    // Dismiss on outside click
+    document.addEventListener('click', function (e) {
+      if (e.target === input) return;
+      if (results.contains(e.target)) return;
+      close();
+    });
+
+    // Keyboard handling
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        close();
+        input.blur();
+      } else if (e.key === 'Enter') {
+        var first = results.querySelector('a.search-result');
+        if (first) {
+          window.location.href = first.getAttribute('href');
+        }
+      }
     });
   }
 
-  setupSearch('nav-search', 'nav-search-results');
+  attachSearch('nav-search', 'nav-search-results');
+  attachSearch('nav-search-mobile', 'nav-search-results-mobile');
 
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('#nav-search') && !e.target.closest('#nav-search-results')) {
-      var r = document.getElementById('nav-search-results');
-      if (r) r.style.display = 'none';
+  // Hamburger menu toggle + outside click dismiss
+  (function () {
+    var toggle = document.getElementById('menu-toggle');
+    var menu = document.getElementById('mobile-menu');
+    if (!toggle || !menu) return;
+
+    function openMenu() {
+      menu.classList.remove('menu-hidden');
+      menu.classList.add('menu-visible');
     }
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      var r = document.getElementById('nav-search-results');
-      if (r) r.style.display = 'none';
+    function closeMenu() {
+      menu.classList.remove('menu-visible');
+      menu.classList.add('menu-hidden');
     }
-  });
+
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (menu.classList.contains('menu-visible')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (
+        menu.classList.contains('menu-visible') &&
+        !menu.contains(e.target) &&
+        !toggle.contains(e.target)
+      ) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  })();
 </script>

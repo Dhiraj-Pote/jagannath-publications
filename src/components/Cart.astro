@@ -1,48 +1,86 @@
 ---
-// Cart drawer with quantity support
+import { getCollection } from 'astro:content';
+
+// Build a lookup map so the cart can show cover + price + weight for each slug
+const allBooks = await getCollection('books');
+const cartLookup = allBooks.reduce((acc, b) => {
+  acc[b.slug] = {
+    title: b.data.title,
+    language: b.data.language,
+    price: b.data.price ?? 0,
+    currency: b.data.currency ?? 'INR',
+    coverFront: b.data.coverFront,
+    weight: b.data.dimensions?.weight ?? 0,
+  };
+  return acc;
+}, {});
 ---
 
 <!-- Overlay -->
-<div id="cart-overlay" class="cart-overlay fixed inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm z-40" onclick="toggleCart()"></div>
+<div id="cart-overlay" class="cart-overlay fixed inset-0 bg-black/20 backdrop-blur-sm z-40" onclick="toggleCart()"></div>
 
 <!-- Drawer -->
-<aside id="cart-drawer" class="cart-drawer fixed top-0 right-0 h-full w-full sm:w-[400px] bg-[var(--bg-card)] z-50 shadow-2xl flex flex-col">
+<aside id="cart-drawer" class="cart-drawer fixed top-0 right-0 h-full w-full sm:w-[440px] bg-[var(--bg-primary)] z-50 shadow-2xl flex flex-col">
+  <!-- Header -->
   <div class="flex items-center justify-between px-6 py-5 border-b border-[var(--border)]">
-    <h2 class="font-display text-xl font-bold text-[var(--text-secondary)]">Your Selection</h2>
+    <h2 class="font-display text-2xl font-bold text-[var(--text-primary)]">Your Selection</h2>
     <button onclick="toggleCart()" class="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] transition" aria-label="Close">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
     </button>
   </div>
-  <div id="cart-items" class="flex-1 overflow-y-auto px-6 py-5"></div>
+
+  <!-- Items -->
+  <div id="cart-items" class="flex-1 overflow-y-auto px-6 py-4"></div>
+
+  <!-- Footer (totals + actions) -->
   <div id="cart-footer" class="px-6 py-5 border-t border-[var(--border)] hidden">
-    <div class="flex justify-between items-center mb-4 font-sans text-sm">
-      <span class="text-[var(--text-muted)]">Total books:</span>
-      <span id="cart-total" class="font-semibold text-[var(--text-primary)]">0</span>
+    <div class="space-y-2 mb-5 font-display text-sm">
+      <div class="flex justify-between text-[var(--text-muted)]">
+        <span>Total Books</span>
+        <span id="cart-total-books" class="text-[var(--text-primary)] font-medium">0</span>
+      </div>
+      <div class="flex justify-between text-[var(--text-muted)]">
+        <span>Est. Weight</span>
+        <span id="cart-total-weight" class="text-[var(--text-primary)] font-medium">0g</span>
+      </div>
+      <div class="flex justify-between text-[var(--text-muted)]">
+        <span>Total Amount</span>
+        <span id="cart-total-amount" class="text-[var(--text-primary)] font-semibold">₹0</span>
+      </div>
     </div>
+
     <button
-      onclick="cartCheckout()"
-      class="w-full flex items-center justify-center gap-2.5 py-3.5 bg-maroon-500 dark:bg-saffron-400 text-parchment-100 dark:text-maroon-800 rounded-lg font-sans font-semibold text-sm hover:opacity-90 transition shadow-lg"
+      onclick="cartCheckoutWhatsApp()"
+      class="w-full flex items-center justify-center gap-2.5 py-3 bg-[#25d366] hover:bg-[#1fb856] text-white rounded-full font-display font-semibold text-sm transition shadow-md mb-2.5"
     >
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 22h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
       Order via WhatsApp
     </button>
-    <button onclick="cartClear()" class="w-full mt-2 py-2 font-sans text-sm text-[var(--text-subtle)] hover:text-[var(--text-muted)] transition">
-      Clear All
+
+    <button
+      onclick="cartCheckoutEmail()"
+      class="w-full flex items-center justify-center gap-2.5 py-3 border-2 border-[var(--border-strong)] text-[var(--text-primary)] rounded-full font-display font-semibold text-sm hover:border-[var(--text-primary)] transition mb-2"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+      Order via Email
+    </button>
+
+    <button onclick="cartClear()" class="w-full py-2 font-display text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition">
+      Clear Selection
     </button>
   </div>
 </aside>
 
-<script is:inline>
+<script is:inline define:vars={{ cartLookup }}>
   const WHATSAPP = '917903291954';
-  const CART_VERSION = 2;
+  const EMAIL = 'info@jagannathpublications.com';
+  const CART_VERSION = 3;
 
-  // Cart items: [{ slug, title, language, qty }]
   let cartItems = [];
   try {
     const stored = JSON.parse(localStorage.getItem('jp-cart') || '[]');
     const ver = localStorage.getItem('jp-cart-v');
     if (ver === String(CART_VERSION) && Array.isArray(stored) && stored.every(i => i.slug)) {
-      // Migrate old items without qty
       cartItems = stored.map(i => ({ ...i, qty: i.qty || 1 }));
     } else {
       localStorage.removeItem('jp-cart');
@@ -70,12 +108,8 @@
   function cartSetQty(slug, qty) {
     const item = cartItems.find(i => i.slug === slug);
     if (!item) return;
-    if (qty <= 0) {
-      cartRemove(slug);
-    } else {
-      item.qty = qty;
-      cartSave();
-    }
+    if (qty <= 0) cartRemove(slug);
+    else { item.qty = qty; cartSave(); }
   }
   window.cartSetQty = cartSetQty;
 
@@ -85,10 +119,7 @@
   }
   window.cartRemove = cartRemove;
 
-  function cartClear() {
-    cartItems = [];
-    cartSave();
-  }
+  function cartClear() { cartItems = []; cartSave(); }
   window.cartClear = cartClear;
 
   function cartSave() {
@@ -98,19 +129,52 @@
   }
 
   function cartTotalQty() {
-    return cartItems.reduce((sum, i) => sum + i.qty, 0);
+    return cartItems.reduce((s, i) => s + i.qty, 0);
+  }
+  function cartTotalWeight() {
+    return cartItems.reduce((s, i) => {
+      const w = (cartLookup[i.slug] && cartLookup[i.slug].weight) || 0;
+      return s + w * i.qty;
+    }, 0);
+  }
+  function cartTotalAmount() {
+    return cartItems.reduce((s, i) => {
+      const p = (cartLookup[i.slug] && cartLookup[i.slug].price) || 0;
+      return s + p * i.qty;
+    }, 0);
+  }
+  function currencySymbol(slug) {
+    const c = (cartLookup[slug] && cartLookup[slug].currency) || 'INR';
+    return c === 'INR' ? '₹' : c + ' ';
   }
 
-  function cartCheckout() {
-    if (!cartItems.length) return;
+  function buildOrderMessage() {
     let msg = "Hare Krishna! I'd like to order:\n\n";
     cartItems.forEach((item, i) => {
-      msg += `${i + 1}. ${item.title} (${item.language}) × ${item.qty}\n`;
+      const info = cartLookup[item.slug] || {};
+      const price = info.price || 0;
+      const sym = info.currency === 'INR' ? '₹' : (info.currency || 'INR') + ' ';
+      msg += `${i + 1}. ${item.title} (${item.language}) × ${item.qty} — ${sym}${price * item.qty}\n`;
     });
-    msg += `\nTotal: ${cartTotalQty()} book(s)\n\nPlease let me know availability and pricing. Thank you!`;
-    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+    msg += `\nTotal: ${cartTotalQty()} book(s)`;
+    msg += `\nEst. Weight: ${cartTotalWeight()}g`;
+    msg += `\nTotal Amount: ₹${cartTotalAmount()}`;
+    msg += `\n\nPlease let me know availability and shipping. Thank you!`;
+    return msg;
   }
-  window.cartCheckout = cartCheckout;
+
+  function cartCheckoutWhatsApp() {
+    if (!cartItems.length) return;
+    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(buildOrderMessage())}`, '_blank');
+  }
+  window.cartCheckoutWhatsApp = cartCheckoutWhatsApp;
+
+  function cartCheckoutEmail() {
+    if (!cartItems.length) return;
+    const subject = 'Book Order — Jagannath Publications';
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildOrderMessage())}`;
+  }
+  window.cartCheckoutEmail = cartCheckoutEmail;
 
   function esc(s) {
     const d = document.createElement('div');
@@ -118,75 +182,100 @@
     return d.innerHTML;
   }
 
+  function truncate(s, n) {
+    return s.length > n ? s.slice(0, n - 1).trim() + '…' : s;
+  }
+
   function cartRender() {
     const badge = document.getElementById('cart-badge');
     const container = document.getElementById('cart-items');
     const footer = document.getElementById('cart-footer');
-    const total = cartTotalQty();
+    const totalQty = cartTotalQty();
 
     if (badge) {
-      badge.textContent = total;
-      badge.classList.toggle('hidden', total === 0);
+      badge.textContent = totalQty;
+      badge.classList.toggle('hidden', totalQty === 0);
     }
-
     if (!container) return;
 
     if (cartItems.length === 0) {
       container.innerHTML = `
-        <div class="flex flex-col items-center justify-center h-full opacity-40">
+        <div class="flex flex-col items-center justify-center h-full opacity-50 pt-12">
           <svg class="w-12 h-12 mb-3" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007"/>
           </svg>
-          <p class="font-body text-sm">Your selection is empty</p>
-          <p class="text-xs mt-1">Browse the library to add books</p>
+          <p class="font-display text-sm">Your selection is empty</p>
         </div>`;
-      footer?.classList.add('hidden');
-    } else {
-      container.innerHTML = cartItems.map(item => `
-        <div class="flex items-center gap-3 py-4 border-b border-[var(--border)] last:border-0">
-          <div class="flex-1 min-w-0">
-            <p class="font-body text-sm font-medium text-[var(--text-secondary)] truncate">${esc(item.title)}</p>
-            <p class="font-sans text-xs text-[var(--text-subtle)] mt-0.5">${esc(item.language)}</p>
-          </div>
-          <!-- Quantity controls -->
-          <div class="flex items-center gap-1.5 shrink-0">
-            <button onclick="cartSetQty('${item.slug}', ${item.qty - 1})" class="w-7 h-7 flex items-center justify-center rounded-md border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition text-sm font-medium">−</button>
-            <span class="w-7 text-center font-sans text-sm font-semibold text-[var(--text-primary)]">${item.qty}</span>
-            <button onclick="cartSetQty('${item.slug}', ${item.qty + 1})" class="w-7 h-7 flex items-center justify-center rounded-md border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition text-sm font-medium">+</button>
-          </div>
-          <!-- Remove -->
-          <button onclick="cartRemove('${item.slug}')" class="p-1 text-[var(--text-subtle)] hover:text-red-500 transition shrink-0" aria-label="Remove">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/></svg>
-          </button>
-        </div>`).join('');
-      footer?.classList.remove('hidden');
-      const totalEl = document.getElementById('cart-total');
-      if (totalEl) totalEl.textContent = total;
+      footer.classList.add('hidden');
+      updateCartButtons();
+      return;
     }
+
+    container.innerHTML = cartItems.map(item => {
+      const info = cartLookup[item.slug] || {};
+      const price = info.price || 0;
+      const sym = info.currency === 'INR' ? '₹' : (info.currency || 'INR') + ' ';
+      const cover = info.coverFront || '';
+      return `
+        <div class="flex items-center gap-3 py-3 border-b border-[var(--border)] last:border-0">
+          <a href="/books/${item.slug}/" class="shrink-0 w-12 h-16 rounded overflow-hidden bg-[var(--bg-secondary)]">
+            ${cover ? `<img src="${cover}" alt="" class="w-full h-full object-cover">` : ''}
+          </a>
+          <div class="flex-1 min-w-0">
+            <p class="font-display text-sm font-semibold text-[var(--text-primary)] leading-snug">${esc(truncate(item.title, 24))}</p>
+            <p class="font-display text-[11px] tracking-wider uppercase text-[var(--text-muted)] mt-0.5">${esc(item.language)} | ${sym}${price}</p>
+          </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <button onclick="cartSetQty('${item.slug}', ${item.qty - 1})" class="w-7 h-7 flex items-center justify-center rounded border border-[var(--border-strong)] text-[var(--text-primary)] hover:border-brand-500 hover:text-brand-500 transition text-sm">−</button>
+            <span class="w-6 text-center font-display text-sm font-semibold text-[var(--text-primary)]">${item.qty}</span>
+            <button onclick="cartSetQty('${item.slug}', ${item.qty + 1})" class="w-7 h-7 flex items-center justify-center rounded border border-[var(--border-strong)] text-[var(--text-primary)] hover:border-brand-500 hover:text-brand-500 transition text-sm">+</button>
+          </div>
+          <button onclick="cartRemove('${item.slug}')" class="p-1 text-[var(--text-subtle)] hover:text-red-500 transition shrink-0" aria-label="Remove">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+          </button>
+        </div>`;
+    }).join('');
+
+    footer.classList.remove('hidden');
+    document.getElementById('cart-total-books').textContent = totalQty;
+    document.getElementById('cart-total-weight').textContent = cartTotalWeight() + 'g';
+    document.getElementById('cart-total-amount').textContent = '₹' + cartTotalAmount();
+    updateCartButtons();
   }
 
-  // Update all add-to-cart buttons on the page to reflect cart state
   function updateCartButtons() {
     document.querySelectorAll('[data-cart-btn]').forEach(btn => {
+      // Skip the detail-page main action (it has its own active class)
       const slug = btn.getAttribute('data-cart-btn');
       const item = cartItems.find(i => i.slug === slug);
-      if (item) {
-        btn.textContent = `In List (${item.qty})`;
-        btn.className = 'mt-2 w-full py-2 rounded-lg font-sans text-xs font-semibold border transition-all bg-maroon-500 dark:bg-saffron-400 text-parchment-100 dark:text-maroon-800 border-transparent';
-      } else {
-        btn.textContent = '+ Add to List';
-        btn.className = 'mt-2 w-full py-2 rounded-lg font-sans text-xs font-medium border transition-all border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)] hover:text-[var(--accent)]';
+      if (btn.classList.contains('add-to-bag-btn')) {
+        if (item) {
+          btn.textContent = `Added! (${item.qty})`;
+          btn.dataset.active = '1';
+          btn.classList.remove('border-[var(--border-strong)]', 'text-[var(--text-primary)]', 'bg-transparent');
+          btn.classList.add('bg-brand-500', 'text-white', 'border-brand-500');
+        } else if (btn.dataset.active === '1') {
+          btn.textContent = btn.dataset.defaultText || 'ADD TO BAG';
+          btn.dataset.active = '0';
+          btn.classList.remove('bg-brand-500', 'text-white', 'border-brand-500');
+          btn.classList.add('border-[var(--border-strong)]', 'text-[var(--text-primary)]', 'bg-transparent');
+        }
       }
     });
   }
   window.updateCartButtons = updateCartButtons;
 
-  // Also update buttons whenever cart renders
-  const origCartRender = cartRender;
-  cartRender = function() {
-    origCartRender();
-    updateCartButtons();
-  };
+  // Wire up all add-to-bag buttons (delegation for dynamic content)
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.add-to-bag-btn');
+    if (!btn) return;
+    e.preventDefault();
+    const slug = btn.getAttribute('data-cart-btn');
+    const title = btn.getAttribute('data-title');
+    const language = btn.getAttribute('data-language');
+    if (!btn.dataset.defaultText) btn.dataset.defaultText = btn.textContent.trim();
+    cartAdd(slug, title, language);
+  });
 
   cartRender();
 </script>

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Gatwick font (display headings) ── */
+/* ── Gatwick font (display headings + body) ── */
 @font-face {
   font-family: 'Gatwick';
   src: url('/fonts/Gatwick-Bold.woff2') format('woff2');
@@ -33,40 +33,29 @@
 }
 
 @layer base {
-  /* ── Light theme (default) ── */
   :root {
+    /* Parchment base */
     --bg-primary: #faf6ee;
-    --bg-secondary: #f3ecdb;
+    --bg-secondary: #f5efe1;
     --bg-card: #fdfbf7;
     --bg-elevated: #ffffff;
-    --text-primary: #2a100a;
-    --text-secondary: #6b2920;
-    --text-muted: #a85a52;
-    --text-subtle: #d4847b;
+
+    /* Text colors (dark maroon / brown) */
+    --text-primary: #1c1210;
+    --text-secondary: #3a2a1e;
+    --text-muted: #6b5a48;
+    --text-subtle: #a89680;
+
+    /* Accents */
     --accent: #c9a96e;
     --accent-hover: #a68b4b;
-    --border: rgba(201, 169, 110, 0.2);
-    --border-strong: rgba(201, 169, 110, 0.4);
+    --brand: #f97316;       /* orange CTAs */
+
+    /* Borders + shadows */
+    --border: rgba(58, 42, 30, 0.1);
+    --border-strong: rgba(58, 42, 30, 0.25);
     --shadow: rgba(74, 28, 21, 0.08);
     --shadow-strong: rgba(74, 28, 21, 0.15);
-  }
-
-  /* ── Dark theme (warm brown-dark) ── */
-  .dark {
-    --bg-primary: #1c1210;
-    --bg-secondary: #241a16;
-    --bg-card: #2a1e19;
-    --bg-elevated: #33261f;
-    --text-primary: #f5ede4;
-    --text-secondary: #e8dcc8;
-    --text-muted: #c4a68e;
-    --text-subtle: #7a5c4a;
-    --accent: #d4b87a;
-    --accent-hover: #e8d5a8;
-    --border: rgba(201, 169, 110, 0.12);
-    --border-strong: rgba(201, 169, 110, 0.25);
-    --shadow: rgba(0, 0, 0, 0.3);
-    --shadow-strong: rgba(0, 0, 0, 0.5);
   }
 
   html {
@@ -76,30 +65,22 @@
   body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
+    font-family: 'Gatwick', Georgia, serif;
   }
 
   ::selection {
-    background-color: rgba(201, 169, 110, 0.3);
+    background-color: rgba(249, 115, 22, 0.2);
     color: var(--text-primary);
   }
 }
 
 @layer components {
-  /* ── Parchment texture overlay ── */
+  /* Subtle parchment texture */
   .parchment-texture {
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4c4a0' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a96e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
-  .dark .parchment-texture {
-    background-image: none;
-  }
-
-  /* ── Book card — no hover lift on the whole card ── */
-  .book-card {
-    transition: none;
-  }
-
-  /* ── Ornamental divider ── */
+  /* Decorative ornament divider (fleur-de-lis style) */
   .ornament {
     display: flex;
     align-items: center;
@@ -109,42 +90,36 @@
   .ornament::before,
   .ornament::after {
     content: '';
-    width: 48px;
+    width: 80px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0.4;
+    background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+  }
+  .ornament-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.6;
   }
 
-  /* ── Fade-in animation ── */
-  .fade-in {
-    animation: fadeIn 0.8s ease-out;
-  }
+  .fade-in { animation: fadeIn 0.8s ease-out; }
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── Portrait fade mask (bottom to transparent) ── */
-  .portrait-fade {
-    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-  }
-
-  /* ── Hide scrollbar ── */
   .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
   .hide-scrollbar::-webkit-scrollbar { display: none; }
 
-  /* ── Cart drawer ── */
+  /* Cart drawer */
   .cart-drawer {
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .cart-drawer.open {
-    transform: translateX(0);
-  }
+  .cart-drawer.open { transform: translateX(0); }
   .cart-overlay {
     opacity: 0;
     transition: opacity 0.3s ease;

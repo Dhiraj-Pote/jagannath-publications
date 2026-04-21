@@ -1,0 +1,147 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Cart from '../components/Cart.astro';
+
+const updated = 'April 2026';
+---
+
+<Base
+  title="Disclaimer"
+  description="Disclaimer for Jagannath Publications — purpose, attribution, and use of the sacred literature of Srila Gour Govinda Swami Maharaja."
+>
+  <Header />
+
+  <main class="pt-28 pb-20">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8">
+      <!-- Hero -->
+      <div class="text-center mb-10">
+        <p class="font-display text-xs tracking-[0.3em] uppercase text-brand-500 font-semibold mb-3">
+          Disclaimer
+        </p>
+        <h1 class="font-display text-4xl sm:text-5xl font-bold text-[var(--text-primary)] mb-4">
+          A Note to Our Readers
+        </h1>
+        <p class="font-display text-sm text-[var(--text-muted)]">
+          Last updated: {updated}
+        </p>
+      </div>
+
+      <!-- Ornament -->
+      <div class="ornament mb-10">
+        <svg width="36" height="10" viewBox="0 0 36 10" fill="none" class="text-[var(--accent)]" aria-hidden="true">
+          <path d="M8 5 L12 2 L16 5 L12 8 Z M18 5 L22 1 L26 5 L22 9 Z M27 5 L30 3 L33 5 L30 7 Z" fill="currentColor" opacity="0.5"/>
+        </svg>
+      </div>
+
+      <article class="legal-content space-y-7">
+        <section>
+          <h2>Purpose of this Imprint</h2>
+          <p>
+            Jagannath Publications exists solely to preserve, transcribe, translate, and
+            distribute the spoken and written works of His Holiness Srila Gour Govinda
+            Swami Maharaja. We are a non-commercial devotional service. Any profit from
+            sales returns directly to the printing of further titles.
+          </p>
+        </section>
+
+        <section>
+          <h2>Not an Official ISKCON Publication</h2>
+          <p>
+            While Srila Gour Govinda Swami was a sannyasi disciple of His Divine Grace A.C.
+            Bhaktivedanta Swami Prabhupada and an initiating spiritual master within ISKCON,
+            this website is maintained independently by followers and is not an official
+            outlet of ISKCON, the Bhaktivedanta Book Trust (BBT), or the Governing Body
+            Commission.
+          </p>
+        </section>
+
+        <section>
+          <h2>Attribution of Quotations</h2>
+          <p>
+            All quotations from <em>Bhagavad-gita As It Is</em>,
+            <em>Srimad-Bhagavatam</em>, <em>Sri Caitanya-caritamrta</em>, and other works
+            cited in our publications remain the copyright of their respective holders
+            (primarily the Bhaktivedanta Book Trust). They appear here under fair-use
+            conventions for the purpose of exposition and scriptural commentary.
+          </p>
+        </section>
+
+        <section>
+          <h2>Transcribed Lectures</h2>
+          <p>
+            Several of our books are compiled from audio recordings. While every care is
+            taken to preserve the original intent and wording, the transcription and
+            editorial process is a human effort. Any error or inadvertent inaccuracy is
+            the fault of the editors, not the speaker.
+          </p>
+        </section>
+
+        <section>
+          <h2>Spiritual Advice</h2>
+          <p>
+            The contents of these books represent the teachings of a bona fide Vaisnava
+            acarya and are intended as inspiration and guidance on the path of devotional
+            service. They are not substitutes for personal guidance from a qualified
+            spiritual master, nor for professional medical, legal, or psychological
+            advice.
+          </p>
+        </section>
+
+        <section>
+          <h2>Imagery and Design</h2>
+          <p>
+            Photographs of Srila Gour Govinda Swami Maharaja and the temple silhouette
+            motifs are used with respect, for the glorification of the acarya and his
+            mission. If you are a copyright holder of any material on this site and have
+            concerns, please contact us and we will respond promptly.
+          </p>
+        </section>
+      </article>
+
+      <!-- Footer hint -->
+      <div class="text-center mt-12 pt-8 border-t border-[var(--border)]">
+        <p class="font-display text-sm text-[var(--text-muted)]">
+          Questions or concerns?
+          <a href="/contact/" class="text-brand-500 hover:text-brand-600 font-semibold">Contact us</a>.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <Cart />
+</Base>
+
+<style>
+  .legal-content section h2 {
+    font-family: 'Gatwick', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.375rem;
+    color: var(--text-primary);
+    margin-bottom: 0.625rem;
+    position: relative;
+    padding-left: 1rem;
+  }
+  .legal-content section h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.375rem;
+    bottom: 0.375rem;
+    width: 3px;
+    background: linear-gradient(180deg, var(--brand), var(--accent));
+    border-radius: 2px;
+  }
+  .legal-content section p {
+    font-family: 'Gatwick', Georgia, serif;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+  .legal-content section p em {
+    font-style: italic;
+    color: var(--text-primary);
+  }
+</style>

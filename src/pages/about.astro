@@ -1,0 +1,271 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Cart from '../components/Cart.astro';
+---
+
+<Base
+  title="About Us"
+  description="Jagannath Publications — preserving and sharing the sacred literature of Srila Gour Govinda Swami Maharaja."
+>
+  <Header />
+
+  <main class="pt-28 pb-20">
+    <!-- Hero -->
+    <section class="max-w-4xl mx-auto px-5 sm:px-8 text-center mb-12 sm:mb-16">
+      <p class="font-display text-xs tracking-[0.3em] uppercase text-brand-500 font-semibold mb-3">
+        About Us
+      </p>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] leading-tight mb-5">
+        Seva through the Printed Word
+      </h1>
+      <p class="font-display text-lg sm:text-xl text-[var(--text-muted)] leading-relaxed max-w-2xl mx-auto">
+        Jagannath Publications is a devotional imprint dedicated to one purpose — placing
+        the words of Srila Gour Govinda Swami Maharaja into the hands of every sincere
+        seeker.
+      </p>
+    </section>
+
+    <!-- Ornament divider -->
+    <div class="max-w-3xl mx-auto px-5 sm:px-8">
+      <div class="ornament">
+        <svg width="42" height="22" viewBox="0 0 42 22" fill="none" class="text-[var(--accent)]" aria-hidden="true">
+          <path d="M21 20 C21 20 8 20 4 14 C9 14 13 12 15 8 C16 11 18 13 21 14 C24 13 26 11 27 8 C29 12 33 14 38 14 C34 20 21 20 21 20 Z" fill="currentColor" opacity="0.45"/>
+          <path d="M21 14 C21 14 17 11 18 5 C20 7 21 10 21 14 Z M21 14 C21 14 25 11 24 5 C22 7 21 10 21 14 Z" fill="currentColor" opacity="0.55"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Mission block -->
+    <section class="max-w-3xl mx-auto px-5 sm:px-8 py-10 sm:py-14 space-y-8">
+      <article class="prose-block">
+        <h2>Our Mission</h2>
+        <p>
+          For over three decades, Srila Gour Govinda Swami delivered the purest message of
+          the <em>Srimad-Bhagavatam</em> in temples, huts, and living rooms across the
+          world. Thousands of hours of his lectures, bhajans, and intimate darshans were
+          recorded — but much of it still rests unheard. Our work is to transcribe, edit,
+          translate, print, and distribute these teachings exactly as he spoke them.
+        </p>
+      </article>
+
+      <!-- Values grid -->
+      <div class="grid sm:grid-cols-3 gap-4 sm:gap-5 my-10">
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+            </svg>
+          </div>
+          <h3>Fidelity</h3>
+          <p>Every word is cross-checked against the original recordings. Nothing is polished away.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/>
+            </svg>
+          </div>
+          <h3>Accessibility</h3>
+          <p>Four languages in print today — more on the way. Affordable pricing for every reader.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+            </svg>
+          </div>
+          <h3>Devotion</h3>
+          <p>Not a business. Every rupee returns to printing the next title and supporting the temple.</p>
+        </div>
+      </div>
+
+      <article class="prose-block">
+        <h2>Two Imprints, One Family</h2>
+        <p>
+          Our titles are published under two devotional imprints founded in service of Srila
+          Gour Govinda Swami's mission:
+        </p>
+        <ul>
+          <li>
+            <strong>Gopal Jiu Publications</strong> — established at the ISKCON Bhubaneswar
+            temple to publish the monthly <em>Sri Krsna-kathamrta</em> magazine and allied
+            booklets in English, Hindi, and Bengali.
+          </li>
+          <li>
+            <strong>Tattva Vichar Publications</strong> — dedicated to longer works,
+            translated volumes, and the multi-volume <em>Sri Radha</em> and
+            <em>Guru-tattva</em> series.
+          </li>
+        </ul>
+      </article>
+
+      <article class="prose-block">
+        <h2>Over 80 Titles. One Message.</h2>
+        <p>
+          From slim introductory booklets to the landmark <em>Sri Radha — Ocean of
+          Krsna-prema</em>, our catalog spans every stage of the devotional journey. You will
+          find works on the glories of the Holy Name, the science of the guru, the pastimes
+          of Lord Jagannath, Vedic family life, and the innermost mood of Sri Caitanya
+          Mahaprabhu.
+        </p>
+      </article>
+
+      <!-- Stats row -->
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-num">80+</div>
+          <div class="stat-label">Titles in Print</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Languages</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3,000+</div>
+          <div class="stat-label">Hours of Audio</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">30+</div>
+          <div class="stat-label">Years of Service</div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center pt-6">
+        <a
+          href="/books/"
+          class="inline-flex items-center gap-2 px-7 py-3 bg-brand-500 hover:bg-brand-600 text-white rounded-full font-display text-sm font-semibold tracking-wider uppercase transition shadow-md"
+        >
+          Browse the Library
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <Cart />
+</Base>
+
+<style>
+  .prose-block h2 {
+    font-family: 'Gatwick', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.75rem;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    position: relative;
+    padding-left: 1rem;
+  }
+  .prose-block h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 3px;
+    background: linear-gradient(180deg, var(--brand), var(--accent));
+    border-radius: 2px;
+  }
+  .prose-block p,
+  .prose-block ul {
+    font-family: 'Gatwick', Georgia, serif;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+  .prose-block ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 1rem;
+  }
+  .prose-block ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-block ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--brand);
+    opacity: 0.6;
+  }
+  .prose-block p em,
+  .prose-block li em {
+    font-style: italic;
+    color: var(--text-primary);
+  }
+
+  .value-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    transition: all 0.25s ease;
+  }
+  .value-card:hover {
+    border-color: var(--brand);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(249, 115, 22, 0.1);
+  }
+  .value-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(201, 169, 110, 0.1));
+    color: var(--brand);
+    margin-bottom: 0.875rem;
+  }
+  .value-card h3 {
+    font-family: 'Gatwick', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.375rem;
+  }
+  .value-card p {
+    font-family: 'Gatwick', Georgia, serif;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  @media (min-width: 640px) {
+    .stats-row {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Gatwick', Georgia, serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--brand);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Gatwick', Georgia, serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+</style>
