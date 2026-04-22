@@ -20,7 +20,7 @@ const featured = books.slice(0, 8);
 
   <!-- ═══════ HERO ═══════ -->
   <section class="relative overflow-hidden pt-28 sm:pt-32 pb-12 sm:pb-16">
-    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
       <div class="grid grid-cols-[1.3fr_0.7fr] lg:grid-cols-[1.1fr_0.9fr] gap-4 sm:gap-8 lg:gap-12 items-center">
         <!-- Left: Text -->
         <div class="fade-in">
@@ -54,46 +54,59 @@ const featured = books.slice(0, 8);
     </div>
   </section>
 
-  <!-- ═══════ AUTHOR CARD ═══════ -->
-  <section id="about" class="pb-12 sm:pb-16">
-    <div class="max-w-6xl mx-auto px-5 sm:px-8">
-      <div class="author-card rounded-3xl p-8 sm:p-12 lg:p-16">
-        <div class="grid sm:grid-cols-[auto_1fr] gap-8 sm:gap-12 lg:gap-16 items-center">
-          <!-- Portrait -->
-          <div class="w-48 sm:w-64 lg:w-80 mx-auto sm:mx-0 shrink-0">
-            <img
-              src="/images/maharaja-bg-rm.png"
-              style="transform: scale(1.15);"
-              alt="Srila Gour Govinda Swami Maharaja"
-              class="w-full"
-              loading="eager"
-            />
-          </div>
+<!-- ═══════ AUTHOR CARD ═══════ -->
+<section id="about" class="pb-12 sm:pb-16">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="author-card rounded-3xl p-6 sm:p-8 lg:p-10">
+      <div class="author-grid">
 
-          <!-- Text -->
-          <div>
-            <p class="font-display text-xs tracking-[0.3em] uppercase text-brand-500 mb-3 font-semibold">The Author</p>
-            <h2 class="font-display text-2xl sm:text-3xl font-bold text-[var(--text-secondary)] leading-tight mb-1">
-              Sri Srimad
-            </h2>
-            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--text-primary)] leading-tight mb-5">
-              Gour Govinda Swami
-            </h2>
-            <p class="font-display text-base sm:text-lg text-[var(--text-muted)] leading-relaxed mb-5 max-w-2xl">
-              A visionary spiritual leader from the heart of the Srimad Bhagavatam, revealing the deepest understanding of pure devotional service.
-            </p>
-            <a href="/biography/" class="inline-block font-display text-xs uppercase tracking-[0.25em] text-brand-500 hover:text-brand-600 font-semibold mb-4">
-              Discover His Journey →
-            </a>
-          
-          </div>
+        <!-- Portrait — stands at bottom of card -->
+        <div class="author-portrait">
+          <img
+            src="/images/maharaja-bg-rm.png"
+            alt="Srila Gour Govinda Swami Maharaja"
+            loading="eager"
+          />
         </div>
+
+        <!-- Text -->
+        <div class="author-text">
+          <p class="font-display text-xs tracking-[0.3em] uppercase text-brand-500 mb-3 font-semibold">
+            The Author
+          </p>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-[var(--text-secondary)] leading-tight mb-1">
+            Sri Srimad
+          </h2>
+          <h2 class="author-title font-display font-bold text-[var(--text-primary)] leading-tight mb-5">
+            Gour Govinda Swami
+          </h2>
+          <p class="font-display text-base sm:text-lg text-[var(--text-muted)] leading-relaxed mb-5 max-w-xl">
+            A visionary saint who spoke from the heart of the Srimad Bhagavatam, revealing
+            the deepest secrets of pure devotional service.
+          </p>
+          <a
+            href="/biography/"
+            class="inline-block font-display text-xs uppercase tracking-[0.25em] text-brand-500 hover:text-brand-600 font-semibold"
+          >
+            Discover His Journey →
+          </a>
+        </div>
+
       </div>
+
+      <!-- Signature — positioned at card bottom-right, spans card width -->
+      <img
+        src="/images/signature%20SGGS.png"
+        alt="Signature of Srila Gour Govinda Swami"
+        class="author-signature"
+        loading="lazy"
+      />
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Ornament divider -->
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-4">
     <div class="ornament">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-[var(--accent)]">
         <path d="M12 2L13.5 10.5L22 12L13.5 13.5L12 22L10.5 13.5L2 12L10.5 10.5L12 2Z" fill="currentColor" opacity="0.5"/>
@@ -103,7 +116,7 @@ const featured = books.slice(0, 8);
 
   <!-- ═══════ LANGUAGE PILLS + FEATURED BOOKS ═══════ -->
   <section id="library" class="py-8 sm:py-12">
-    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
       <!-- Language pills -->
       <div class="flex justify-center mb-10">
         <LanguagePills />
@@ -136,7 +149,7 @@ const featured = books.slice(0, 8);
   </section>
 
   <!-- Ornament divider (lotus) -->
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-6">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-6">
     <div class="ornament">
       <svg width="42" height="22" viewBox="0 0 42 22" fill="none" class="text-[var(--accent)]" aria-hidden="true">
         <path d="M21 20 C21 20 8 20 4 14 C9 14 13 12 15 8 C16 11 18 13 21 14 C24 13 26 11 27 8 C29 12 33 14 38 14 C34 20 21 20 21 20 Z" fill="currentColor" opacity="0.45" />
@@ -147,7 +160,7 @@ const featured = books.slice(0, 8);
 
   <!-- ═══════ FEATURE CARDS (Amrita Vani + Calendar) ═══════ -->
   <section class="pb-12 sm:pb-16">
-    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
       <div class="grid grid-cols-2 gap-4 sm:gap-6">
         <FeatureCard
           href="/books/amrta-vani-audio-box-en/"
@@ -168,7 +181,7 @@ const featured = books.slice(0, 8);
   </section>
 
   <!-- Ornament divider (diamond) -->
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-6">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-6">
     <div class="ornament">
       <svg width="36" height="10" viewBox="0 0 36 10" fill="none" class="text-[var(--accent)]" aria-hidden="true">
         <path d="M8 5 L12 2 L16 5 L12 8 Z M18 5 L22 1 L26 5 L22 9 Z M27 5 L30 3 L33 5 L30 7 Z" fill="currentColor" opacity="0.5" />
@@ -182,10 +195,96 @@ const featured = books.slice(0, 8);
 
 <style>
   .author-card {
-    background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(250,246,238,0.4));
-    border: 1px solid var(--border);
-    box-shadow: 0 8px 32px rgba(74, 28, 21, 0.06);
-    backdrop-filter: blur(8px);
+    position: relative;           /* anchor for absolute signature */
+    background: rgba(250, 246, 238, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow:
+      0 8px 32px rgba(74, 28, 21, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    overflow: hidden;             /* keep signature inside rounded card */
+  }
+
+  /* Grid: portrait left, text right, both aligned to card bottom */
+  .author-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: end;
+  }
+  @media (min-width: 640px) {
+    .author-grid {
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .author-grid { gap: 2.5rem; }
+  }
+
+  /* Portrait stands at bottom-left, raised so it doesn't sit flush */
+  .author-portrait {
+    display: flex;
+    justify-content: center;
+    align-self: end;
+    margin: -1rem 0 0.5rem -1.5rem;   /* bleed into card padding horizontally; sit higher */
+  }
+  .author-portrait img {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+  @media (min-width: 640px) {
+    .author-portrait {
+      justify-content: flex-start;
+      margin: -1rem 0 1rem -2rem;
+    }
+    .author-portrait img { width: 240px; }
+  }
+  @media (min-width: 1024px) {
+    .author-portrait { margin: -1rem 0 4.25rem -2.5rem; }
+    .author-portrait img { width: 300px; }
+  }
+
+  /* Text column */
+  .author-text {
+    min-width: 0;
+    padding-bottom: 3.5rem;   /* leave room for signature at bottom-right */
+  }
+  @media (min-width: 640px) {
+    .author-text { padding-bottom: 4rem; }
+  }
+  @media (min-width: 1024px) {
+    .author-text { padding-bottom: 4.5rem; }
+  }
+
+  /* Title — scales to fit one line using clamp(), capped so it never crowds the edge */
+  .author-title {
+    font-size: clamp(1.5rem, 3.6vw, 2.5rem);
+    white-space: nowrap;
+    overflow: visible;
+  }
+  @media (max-width: 480px) {
+    .author-title { white-space: normal; font-size: 1.5rem; }
+  }
+
+  /* Signature — absolute bottom-right of the CARD, not the text column */
+  .author-signature {
+    position: absolute;
+    bottom: 4rem;
+    right: 1.25rem;
+    width: 200px;
+    max-width: 45%;
+    height: auto;
+    opacity: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  @media (min-width: 640px) {
+    .author-signature { width: 260px; bottom: 1.25rem; right: 1.75rem; }
+  }
+  @media (min-width: 1024px) {
+    .author-signature { width: 320px; bottom: 1.5rem; right: 2rem; }
   }
 
   /* Subtle floating animation for hero books */
