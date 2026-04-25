@@ -1,6 +1,7 @@
 ---
 title: "Vedic Dharma I (Grhastha Ashram) (soft)"
 language: "English"
+price: 300
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/vedic-dharma-i-grhastha-ashram-soft-en/front.jpg"
 coverBack: "/images/books/vedic-dharma-i-grhastha-ashram-soft-en/back.jpg"

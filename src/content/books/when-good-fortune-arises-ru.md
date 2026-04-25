@@ -1,6 +1,7 @@
 ---
 title: "When Good Fortune Arises"
 language: "Russian"
+price: 200
 coverFront: "/images/books/when-good-fortune-arises-ru/front.jpg"
 coverBack: "/images/books/when-good-fortune-arises-ru/back.jpg"
 indexPages:

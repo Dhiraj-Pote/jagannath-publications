@@ -1,6 +1,7 @@
 ---
 title: "Bhagavan Ke Janar Upay"
 language: "Bengali"
+price: 150
 coverFront: "/images/books/bhagavan-ke-janar-upay-be/front.jpg"
 coverBack: "/images/books/bhagavan-ke-janar-upay-be/back.jpg"
 indexPages:

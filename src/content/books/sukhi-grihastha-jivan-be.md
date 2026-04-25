@@ -1,6 +1,7 @@
 ---
 title: "Sukhi Grihastha Jivan"
 language: "Bengali"
+price: 100
 coverFront: "/images/books/sukhi-grihastha-jivan-be/front.jpg"
 coverBack: "/images/books/sukhi-grihastha-jivan-be/back.jpg"
 indexPages:

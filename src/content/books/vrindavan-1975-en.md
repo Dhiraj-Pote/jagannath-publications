@@ -1,6 +1,7 @@
 ---
 title: "Vrindavan 1975"
 language: "English"
+price: 30
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/vrindavan-1975-en/front.webp"
 coverBack: "/images/books/vrindavan-1975-en/back.webp"

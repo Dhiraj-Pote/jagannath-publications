@@ -20,33 +20,34 @@ const featured = books.slice(0, 8);
   <Header />
 
   <!-- ═══════ HERO ═══════ -->
-  <section class="relative overflow-hidden pt-28 sm:pt-32 pb-12 sm:pb-16">
+  <section class="hero-section relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="grid grid-cols-[1.3fr_0.7fr] lg:grid-cols-[1.1fr_0.9fr] gap-4 sm:gap-8 lg:gap-12 items-center">
+      <div class="hero-grid">
         <!-- Left: Text -->
-        <div class="fade-in">
-<h1 class="font-display text-xs sm:text-sm md:text-base lg:text-2xl font-bold text-[var(--text-secondary)] leading-tight tracking-tight uppercase mb-1 sm:mb-2">
-  The Timeless Wisdom of<br/> Srila Gour Govinda Swami
-</h1>
+        <div class="fade-in hero-text">
+          <h1 class="hero-heading font-display font-bold text-[var(--text-primary)] tracking-tight uppercase">
+            <span class="hero-heading__line">The Timeless Wisdom of</span>
+            <span class="hero-heading__line hero-heading__accent">Srila Gour Govinda Swami</span>
+          </h1>
 
-          <p class="font-display text-xs sm:text-base lg:text-lg text-[var(--text-muted)] leading-relaxed mb-5 sm:mb-7 max-w-md">
-            Over 80 Books in English, Hindi, Bengali, and Russian.
+          <p class="hero-subtitle font-display text-[var(--text-muted)]">
+            Over 80 titles in<br />English, Hindi, Bengali, and Russian
           </p>
 
           <a
             href="#library"
-            class="inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 bg-brand-500 hover:bg-brand-600 text-white rounded-full font-display text-xs sm:text-sm font-semibold tracking-wider uppercase transition shadow-md"
+            class="hero-cta"
           >
             Explore Books
           </a>
         </div>
 
         <!-- Right: Book stack image -->
-        <div class="books-float-wrap">
+        <div class="books-float-wrap hero-visual">
           <img
             src="/images/books-hero.png"
             alt="Featured books by Srila Gour Govinda Swami Maharaja"
-            class="books-float w-full max-w-[160px] sm:max-w-[240px] lg:max-w-[360px] ml-auto drop-shadow-2xl"
+            class="books-float hero-books"
             loading="eager"
             fetchpriority="high"
           />
@@ -56,9 +57,9 @@ const featured = books.slice(0, 8);
   </section>
 
 <!-- ═══════ AUTHOR CARD ═══════ -->
-<section id="about" class="pb-12 sm:pb-16">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8">
-    <div class="author-card rounded-3xl p-6 sm:p-8 lg:p-10">
+<section id="about" class="author-section">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="author-card rounded-3xl p-10 sm:p-16 lg:p-20">
       <div class="author-grid">
 
         <!-- Portrait — stands at bottom of card -->
@@ -72,22 +73,22 @@ const featured = books.slice(0, 8);
 
         <!-- Text -->
         <div class="author-text">
-          <p class="font-display text-xs tracking-[0.3em] uppercase text-brand-500 mb-3 font-semibold">
+          <p class="font-display text-xl tracking-[0.23em] uppercase text-brand-500 mb-4 font-semibold">
             The Author
           </p>
-          <h2 class="font-display text-2xl sm:text-3xl font-bold text-[var(--text-secondary)] leading-tight mb-1">
+          <h2 class="font-display text-3xl sm:text-4xl font-normal text-[var(--text-secondary)] leading-tight mb-3 tracking-[0.02em]">
             Sri Srimad
           </h2>
-          <h2 class="author-title font-display font-bold text-[var(--text-primary)] leading-tight mb-5">
+          <h2 class="author-title font-display font-bold text-[var(--text-primary)] leading-tight mb-6 tracking-[0.02em]">
             Gour Govinda Swami
           </h2>
-          <p class="font-display text-base sm:text-lg text-[var(--text-muted)] leading-relaxed mb-5 max-w-xl">
+          <p class="font-display text-lg sm:text-xl text-[var(--text-muted)] leading-relaxed mb-6 max-w-2xl">
             A visionary saint who spoke from the heart of the Srimad Bhagavatam, revealing
             the deepest secrets of pure devotional service.
           </p>
           <a
             href="/biography/"
-            class="inline-block font-display text-xs uppercase tracking-[0.25em] text-brand-500 hover:text-brand-600 font-semibold"
+            class="inline-block font-display text-sm uppercase tracking-[0.25em] text-brand-500 hover:text-brand-600 font-semibold"
           >
             Discover His Journey →
           </a>
@@ -108,10 +109,10 @@ const featured = books.slice(0, 8);
 
   <!-- Ornament divider -->
   <div class="max-w-7xl mx-auto px-5 sm:px-8 py-4">
-    <div class="ornament">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-[var(--accent)]">
-        <path d="M12 2L13.5 10.5L22 12L13.5 13.5L12 22L10.5 13.5L2 12L10.5 10.5L12 2Z" fill="currentColor" opacity="0.5"/>
-      </svg>
+    <div class="lotus-divider">
+      <span class="lotus-line"></span>
+      <img src="/images/lotus.png" alt="" class="lotus-icon" />
+      <span class="lotus-line"></span>
     </div>
   </div>
 
@@ -151,11 +152,10 @@ const featured = books.slice(0, 8);
 
   <!-- Ornament divider (lotus) -->
   <div class="max-w-7xl mx-auto px-5 sm:px-8 py-6">
-    <div class="ornament">
-      <svg width="42" height="22" viewBox="0 0 42 22" fill="none" class="text-[var(--accent)]" aria-hidden="true">
-        <path d="M21 20 C21 20 8 20 4 14 C9 14 13 12 15 8 C16 11 18 13 21 14 C24 13 26 11 27 8 C29 12 33 14 38 14 C34 20 21 20 21 20 Z" fill="currentColor" opacity="0.45" />
-        <path d="M21 14 C21 14 17 11 18 5 C20 7 21 10 21 14 Z M21 14 C21 14 25 11 24 5 C22 7 21 10 21 14 Z" fill="currentColor" opacity="0.55" />
-      </svg>
+    <div class="lotus-divider">
+      <span class="lotus-line"></span>
+      <img src="/images/lotus.png" alt="" class="lotus-icon" />
+      <span class="lotus-line"></span>
     </div>
   </div>
 
@@ -183,10 +183,10 @@ const featured = books.slice(0, 8);
 
   <!-- Ornament divider (diamond) -->
   <div class="max-w-7xl mx-auto px-5 sm:px-8 py-6">
-    <div class="ornament">
-      <svg width="36" height="10" viewBox="0 0 36 10" fill="none" class="text-[var(--accent)]" aria-hidden="true">
-        <path d="M8 5 L12 2 L16 5 L12 8 Z M18 5 L22 1 L26 5 L22 9 Z M27 5 L30 3 L33 5 L30 7 Z" fill="currentColor" opacity="0.5" />
-      </svg>
+    <div class="lotus-divider">
+      <span class="lotus-line"></span>
+      <img src="/images/lotus.png" alt="" class="lotus-icon" />
+      <span class="lotus-line"></span>
     </div>
   </div>
 
@@ -198,83 +198,250 @@ const featured = books.slice(0, 8);
   .author-card {
     position: relative;           /* anchor for absolute signature */
     background: rgba(250, 246, 238, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(0, 0, 0, 0.25);
     box-shadow:
       0 8px 32px rgba(74, 28, 21, 0.08),
       inset 0 1px 0 rgba(255, 255, 255, 0.5);
     overflow: hidden;             /* keep signature inside rounded card */
   }
 
-  /* Grid: portrait left, text right, both aligned to card bottom */
+  /* Author card section spacing — gap above/below the card */
+  .author-section {
+    padding-top: 1rem;        /* gap between hero and author card (mobile) */
+    padding-bottom: 3rem;     /* gap below author card (mobile) */
+  }
+  @media (min-width: 640px) {
+    .author-section {
+      padding-top: 1.5rem;    /* desktop top gap */
+      padding-bottom: 4rem;   /* desktop bottom gap */
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     HERO SECTION — mobile-first, responsive
+     Edit the numbers below to tweak spacing / sizes.
+     ═══════════════════════════════════════════════════════════ */
+
+  /* Section spacing (gap between header and hero, and below hero) */
+  .hero-section {
+    padding-top: 7rem;      /* ← gap between top header and hero heading (mobile) */
+    padding-bottom: 3rem;   /* ← gap below Explore Books button → author card (mobile) */
+  }
+  @media (min-width: 640px) {
+    .hero-section {
+      padding-top: 9rem;    /* ← tablet top gap */
+      padding-bottom: 5rem; /* ← tablet bottom gap */
+    }
+  }
+  @media (min-width: 1024px) {
+    .hero-section {
+      padding-top: 17rem;   /* ← desktop top gap (CHANGE THIS for desktop) */
+      padding-bottom: 10rem; /* ← desktop bottom gap (CHANGE THIS for desktop) */
+    }
+  }
+
+  /* Hero grid layout — stacks vertically on mobile, side-by-side on tablet+ */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;            /* mobile: single column */
+    gap: 2rem;
+    align-items: center;
+    text-align: center;                     /* mobile: center everything */
+  }
+  @media (min-width: 640px) {
+    .hero-grid {
+      grid-template-columns: 1.5fr 0.9fr;   /* tablet+: more room for heading */
+      gap: 2rem;
+      text-align: left;
+    }
+  }
+  @media (min-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1.4fr 1fr;     /* desktop: text column wider */
+      gap: 3rem;
+    }
+  }
+
+  /* Hero text column */
+  .hero-text {
+    order: 1;
+  }
+  @media (max-width: 639px) {
+    .hero-text { order: 2; }                /* on mobile, put books on top */
+  }
+
+  /* Hero visual (books image) */
+  .hero-visual {
+    order: 2;
+    display: flex;
+    justify-content: center;
+  }
+  @media (max-width: 639px) {
+    .hero-visual { order: 1; }
+  }
+
+  .hero-books {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.25));
+  }
+  @media (min-width: 640px) {
+    .hero-books { max-width: 340px; margin-left: auto; }
+  }
+  @media (min-width: 1024px) {
+    .hero-books { max-width: 440px; }
+  }
+
+  /* Heading — font-size scales with viewport so both lines always fit */
+  .hero-heading {
+    /* Mobile: smaller, fits in narrow columns */
+    font-size: clamp(1.1rem, 6vw, 1.7rem);
+    line-height: 1.3;
+    margin: 0 0 1rem 0;
+  }
+  /* Each "line" of the heading is its own block and never wraps. */
+  .hero-heading__line {
+    display: block;
+    white-space: nowrap;
+  }
+  .hero-heading__accent {
+    color: var(--text-accent, inherit);
+  }
+  @media (min-width: 640px) {
+    .hero-heading {
+      /* Tablet: text column gets roughly half the viewport.
+         Use ~4vw so heading scales with column width. */
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      margin-bottom: 1.25rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .hero-heading {
+      /* Desktop: fix a max so it stays elegant on huge screens */
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+    }
+  }
+
+  /* Subtitle */
+  .hero-subtitle {
+    font-size: clamp(0.95rem, 2.4vw, 1.8rem);
+    line-height: 1.6;
+    margin: 0 0 1.75rem 0;
+  }
+  @media (min-width: 640px) {
+    .hero-subtitle {
+      font-size: clamp(1.05rem, 1.5vw, 1.8rem);
+      margin-bottom: 2rem;
+    }
+  }
+
+  /* Explore Books button */
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 2rem;
+    border-radius: 9999px;
+    color: #fff;
+    font-family: 'Gatwick', Georgia, serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: linear-gradient(180deg, #e67e22 0%, #c05e0b 100%);
+    box-shadow:
+      0 8px 22px rgba(192, 94, 11, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  @media (min-width: 640px) {
+    .hero-cta {
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+    }
+  }
+  .hero-cta:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+    box-shadow:
+      0 10px 26px rgba(192, 94, 11, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  /* Grid: portrait left, text right — reduced horizontal gap */
   .author-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
     align-items: end;
   }
   @media (min-width: 640px) {
     .author-grid {
       grid-template-columns: auto 1fr;
-      gap: 2rem;
+      gap: 1rem;
     }
   }
   @media (min-width: 1024px) {
-    .author-grid { gap: 2.5rem; }
+    .author-grid { gap: 1.5rem; }
   }
 
-  /* Portrait stands at bottom-left, raised so it doesn't sit flush */
+  /* Portrait — bigger, stands at bottom of card */
   .author-portrait {
     display: flex;
     justify-content: center;
     align-self: end;
-    margin: -1rem 0 0.5rem -1.5rem;   /* bleed into card padding horizontally; sit higher */
+    margin: -2.5rem 0 -2.5rem -2.5rem;
   }
   .author-portrait img {
-    width: 180px;
+    width: 500px;
     height: auto;
     object-fit: contain;
     display: block;
+    /* Fade out bottom to hide pinkish edge baked into the PNG */
+    -webkit-mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
   }
   @media (min-width: 640px) {
     .author-portrait {
       justify-content: flex-start;
-      margin: -1rem 0 1rem -2rem;
+      margin: -4rem 0 -4rem -4rem;
     }
-    .author-portrait img { width: 240px; }
+    .author-portrait img { width: 400px; }
   }
   @media (min-width: 1024px) {
-    .author-portrait { margin: -1rem 0 4.25rem -2.5rem; }
-    .author-portrait img { width: 300px; }
+    .author-portrait { margin: -20rem 0 0rem -4rem; }
+    .author-portrait img { width: 550px; }
   }
 
-  /* Text column */
+  /* Text column — reserve room for signature below */
   .author-text {
     min-width: 0;
-    padding-bottom: 3.5rem;   /* leave room for signature at bottom-right */
+    padding-bottom: 6rem;
   }
   @media (min-width: 640px) {
-    .author-text { padding-bottom: 4rem; }
+    .author-text { padding-bottom: 7rem; }
   }
   @media (min-width: 1024px) {
-    .author-text { padding-bottom: 4.5rem; }
+    .author-text { padding-bottom: 8rem; }
   }
 
-  /* Title — scales to fit one line using clamp(), capped so it never crowds the edge */
+  /* Title — bigger, still one line, capped so it fits inside card */
   .author-title {
-    font-size: clamp(1.5rem, 3.6vw, 2.5rem);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
     white-space: nowrap;
     overflow: visible;
   }
   @media (max-width: 480px) {
-    .author-title { white-space: normal; font-size: 1.5rem; }
+    .author-title { white-space: normal; font-size: 1.75rem; }
   }
 
-  /* Signature — absolute bottom-right of the CARD, not the text column */
+  /* Signature — sits at the very bottom of the card */
   .author-signature {
     position: absolute;
-    bottom: 4rem;
-    right: 1.25rem;
-    width: 200px;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 300px;
     max-width: 45%;
     height: auto;
     opacity: 1;
@@ -282,10 +449,10 @@ const featured = books.slice(0, 8);
     user-select: none;
   }
   @media (min-width: 640px) {
-    .author-signature { width: 260px; bottom: 1.25rem; right: 1.75rem; }
+    .author-signature { width: 380px; bottom: 2rem; right: 2.5rem; }
   }
   @media (min-width: 1024px) {
-    .author-signature { width: 320px; bottom: 1.5rem; right: 2rem; }
+    .author-signature { width: 460px; bottom: -1rem; right: 1.5rem; }
   }
 
   /* Subtle floating animation for hero books */

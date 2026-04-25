@@ -1,6 +1,7 @@
 ---
 title: "Embankment of Seperation"
 language: "English"
+price: 150
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/embankment-of-seperation-en/front.jpg"
 coverBack: "/images/books/embankment-of-seperation-en/back.jpg"

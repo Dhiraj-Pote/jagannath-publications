@@ -1,6 +1,7 @@
 ---
 title: "Virahini Sri Radhika"
 language: "Bengali"
+price: 150
 coverFront: "/images/books/virahini-sri-radhika-be/front.jpg"
 coverBack: "/images/books/virahini-sri-radhika-be/back.jpg"
 indexPages:

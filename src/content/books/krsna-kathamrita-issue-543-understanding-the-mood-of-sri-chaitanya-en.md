@@ -1,6 +1,7 @@
 ---
 title: "Krsna Kathamrita Issue 543(Understanding the mood of sri chaitanya)"
 language: "English"
+price: 100
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/krsna-kathamrita-issue-543-understanding-the-mood-of-sri-chaitanya-en/front.jpg"
 coverBack: "/images/books/krsna-kathamrita-issue-543-understanding-the-mood-of-sri-chaitanya-en/back.jpg"

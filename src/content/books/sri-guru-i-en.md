@@ -1,6 +1,7 @@
 ---
 title: "Sri Guru I"
 language: "English"
+price: 300
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/sri-guru-i-en/front.jpeg"
 coverBack: "/images/books/sri-guru-i-en/back.webp"

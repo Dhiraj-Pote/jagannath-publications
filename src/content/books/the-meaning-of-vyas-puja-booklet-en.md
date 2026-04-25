@@ -1,6 +1,7 @@
 ---
 title: "The Meaning of Vyas Puja Booklet"
 language: "English"
+price: 60
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/the-meaning-of-vyas-puja-booklet-en/front.webp"
 coverBack: "/images/books/the-meaning-of-vyas-puja-booklet-en/back.webp"

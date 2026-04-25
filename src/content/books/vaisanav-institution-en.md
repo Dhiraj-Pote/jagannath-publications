@@ -1,6 +1,7 @@
 ---
 title: "Vaisanav Institution"
 language: "English"
+price: 30
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/vaisanav-institution-en/front.jpg"
 coverBack: "/images/books/vaisanav-institution-en/back.jpg"

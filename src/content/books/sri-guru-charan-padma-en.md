@@ -1,6 +1,7 @@
 ---
 title: "Sri Guru Charan Padma"
 language: "English"
+price: 100
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/sri-guru-charan-padma-en/front.webp"
 coverBack: "/images/books/sri-guru-charan-padma-en/back.webp"

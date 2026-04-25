@@ -1,6 +1,7 @@
 ---
 title: "Only by Mercy of a Sadhu"
 language: "English"
+price: 70
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/only-by-mercy-of-a-sadhu-en/front.webp"
 coverBack: "/images/books/only-by-mercy-of-a-sadhu-en/back.webp"

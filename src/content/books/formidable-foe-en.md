@@ -1,6 +1,7 @@
 ---
 title: "Formidable Foe"
 language: "English"
+price: 50
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/formidable-foe-en/front.jpg"
 coverBack: "/images/books/formidable-foe-en/back.jpg"

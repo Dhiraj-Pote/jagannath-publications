@@ -1,6 +1,7 @@
 ---
 title: "Process of Inquiry"
 language: "Russian"
+price: 100
 coverFront: "/images/books/process-of-inquiry-ru/front.jpg"
 coverBack: "/images/books/process-of-inquiry-ru/back.jpg"
 indexPages:

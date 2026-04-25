@@ -1,6 +1,7 @@
 ---
 title: "Gour Krishna Jagannath"
 language: "Bengali"
+price: 150
 coverFront: "/images/books/gour-krishna-jagannath-be/front.jpg"
 coverBack: "/images/books/gour-krishna-jagannath-be/back.jpg"
 indexPages:

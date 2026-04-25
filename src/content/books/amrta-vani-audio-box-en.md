@@ -2,6 +2,7 @@
 title: "Amrta Vani — Audio Box"
 subtitle: "Complete Audio Collection of Srila Gour Govinda Swami Maharaja"
 language: English
+price: 2500
 publisher: ISKCON Bhubaneswar
 coverFront: /images/products/amrta-vani/1775540326836.jpg
 coverBack: /images/products/amrta-vani/IMG_20260407_103355.jpg

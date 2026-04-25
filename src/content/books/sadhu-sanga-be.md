@@ -1,6 +1,7 @@
 ---
 title: "Sadhu Sanga"
 language: "Bengali"
+price: 130
 coverFront: "/images/books/sadhu-sanga-be/front.jpg"
 coverBack: "/images/books/sadhu-sanga-be/back.jpg"
 indexPages:

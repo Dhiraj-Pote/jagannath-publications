@@ -1,6 +1,7 @@
 ---
 title: "My Revered Spiritual Master"
 language: "Russian"
+price: 250
 coverFront: "/images/books/my-revered-spiritual-master-ru/front.jpg"
 coverBack: "/images/books/my-revered-spiritual-master-ru/back.jpg"
 indexPages:

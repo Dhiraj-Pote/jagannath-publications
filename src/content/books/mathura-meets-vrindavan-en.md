@@ -1,6 +1,7 @@
 ---
 title: "Mathura Meets Vrindavan"
 language: "English"
+price: 200
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/mathura-meets-vrindavan-en/front.jpg"
 coverBack: "/images/books/mathura-meets-vrindavan-en/back.jpg"

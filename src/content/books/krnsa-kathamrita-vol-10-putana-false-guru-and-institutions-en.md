@@ -1,6 +1,7 @@
 ---
 title: "Krnsa Kathamrita vol 10 (Putana, False Guru and Institutions)"
 language: "English"
+price: 150
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/krnsa-kathamrita-vol-10-putana-false-guru-and-institutions-en/front.jpg"
 coverBack: "/images/books/krnsa-kathamrita-vol-10-putana-false-guru-and-institutions-en/back.jpg"

@@ -1,6 +1,7 @@
 ---
 title: "Krnsa Kathamrita vol 13 (Most Merciful Lord)"
 language: "English"
+price: 150
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/krnsa-kathamrita-vol-13-most-merciful-lord-en/front.jpg"
 coverBack: "/images/books/krnsa-kathamrita-vol-13-most-merciful-lord-en/back.jpg"

@@ -1,6 +1,7 @@
 ---
 title: "Suddha Naam Bhajan (Soft)"
 language: "English"
+price: 150
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/suddha-naam-bhajan-soft-en/front.webp"
 coverBack: "/images/books/suddha-naam-bhajan-soft-en/back.webp"

@@ -1,6 +1,7 @@
 ---
 title: "Three Logs Of Woods"
 language: "English"
+price: 30
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/three-logs-of-woods-en/front.jpg"
 coverBack: "/images/books/three-logs-of-woods-en/back.jpg"

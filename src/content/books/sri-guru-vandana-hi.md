@@ -1,6 +1,7 @@
 ---
 title: "Sri Guru Vandana"
 language: "Hindi"
+price: 100
 coverFront: "/images/books/sri-guru-vandana-hi/front.jpg"
 coverBack: "/images/books/sri-guru-vandana-hi/back.jpg"
 indexPages:

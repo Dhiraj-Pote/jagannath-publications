@@ -1,6 +1,7 @@
 ---
 title: "Trinad Api Sunicena (Soft Bound)"
 language: "English"
+price: 300
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/trinad-api-sunicena-soft-bound-en/front.webp"
 coverBack: "/images/books/trinad-api-sunicena-soft-bound-en/back.webp"

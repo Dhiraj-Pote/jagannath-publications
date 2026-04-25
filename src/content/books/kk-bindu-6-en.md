@@ -1,6 +1,7 @@
 ---
 title: "KK Bindu 6"
 language: "English"
+price: 200
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/kk-bindu-6-en/front.jpg"
 coverBack: "/images/books/kk-bindu-6-en/back.jpg"

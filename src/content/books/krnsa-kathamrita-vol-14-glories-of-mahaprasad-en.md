@@ -1,6 +1,7 @@
 ---
 title: "Krnsa Kathamrita vol 14 (Glories of Mahaprasad)"
 language: "English"
+price: 200
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/krnsa-kathamrita-vol-14-glories-of-mahaprasad-en/front.jpg"
 coverBack: "/images/books/krnsa-kathamrita-vol-14-glories-of-mahaprasad-en/back.jpg"

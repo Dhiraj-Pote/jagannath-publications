@@ -1,6 +1,7 @@
 ---
 title: "After Disappearance of Sri Guru"
 language: "Hindi"
+price: 30
 coverFront: "/images/books/after-disappearance-of-sri-guru-hi/front.jpg"
 coverBack: "/images/books/after-disappearance-of-sri-guru-hi/back.jpg"
 indexPages:

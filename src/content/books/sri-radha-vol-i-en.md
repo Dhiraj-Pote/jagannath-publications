@@ -1,6 +1,7 @@
 ---
 title: "Sri Radha Vol. i"
 language: "English"
+price: 350
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/sri-radha-vol-i-en/front.webp"
 coverBack: "/images/books/sri-radha-vol-i-en/back.webp"

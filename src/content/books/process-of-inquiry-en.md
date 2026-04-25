@@ -1,6 +1,7 @@
 ---
 title: "Process of Inquiry"
 language: "English"
+price: 200
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/process-of-inquiry-en/front.jpg"
 coverBack: "/images/books/process-of-inquiry-en/back.jpg"

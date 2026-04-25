@@ -1,6 +1,7 @@
 ---
 title: "Nrisimha Chaturdasi"
 language: "English"
+price: 30
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/nrisimha-chaturdasi-en/front.jpg"
 coverBack: "/images/books/nrisimha-chaturdasi-en/back.jpg"

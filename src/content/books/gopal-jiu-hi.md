@@ -1,6 +1,7 @@
 ---
 title: "Gopal Jiu"
 language: "Hindi"
+price: 80
 coverFront: "/images/books/gopal-jiu-hi/front.jpg"
 coverBack: "/images/books/gopal-jiu-hi/back.jpg"
 indexPages:

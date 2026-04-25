@@ -1,6 +1,7 @@
 ---
 title: "Tattva Darshan"
 language: "English"
+price: 150
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/tattva-darshan-en/front.jpg"
 coverBack: "/images/books/tattva-darshan-en/back.jpg"

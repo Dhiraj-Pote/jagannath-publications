@@ -1,6 +1,7 @@
 ---
 title: "Sri Guru III"
 language: "English"
+price: 300
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/sri-guru-iii-en/front.jpg"
 coverBack: "/images/books/sri-guru-iii-en/back.jpg"

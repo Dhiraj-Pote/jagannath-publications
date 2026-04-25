@@ -1,6 +1,7 @@
 ---
 title: "Flow Of Nectar"
 language: "Russian"
+price: 100
 coverFront: "/images/books/flow-of-nectar-ru/front.jpg"
 coverBack: "/images/books/flow-of-nectar-ru/back.jpg"
 indexPages:

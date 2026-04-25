@@ -1,6 +1,7 @@
 ---
 title: "Sri Gauranga Samaj"
 language: "English"
+price: 50
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/sri-gauranga-samaj-en/front.jpg"
 coverBack: "/images/books/sri-gauranga-samaj-en/back.jpg"

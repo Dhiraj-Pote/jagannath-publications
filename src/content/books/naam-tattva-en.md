@@ -1,6 +1,7 @@
 ---
 title: "Naam Tattva"
 language: "English"
+price: 200
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/naam-tattva-en/front.jpg"
 coverBack: "/images/books/naam-tattva-en/back.jpg"

@@ -1,6 +1,7 @@
 ---
 title: "How To Find Guru"
 language: "English"
+price: 30
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/how-to-find-guru-en/front.jpg"
 coverBack: "/images/books/how-to-find-guru-en/back.jpg"

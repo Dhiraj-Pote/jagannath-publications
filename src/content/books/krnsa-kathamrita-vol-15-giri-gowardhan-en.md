@@ -1,6 +1,7 @@
 ---
 title: "Krnsa Kathamrita vol 15 (Giri Gowardhan)"
 language: "English"
+price: 300
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/krnsa-kathamrita-vol-15-giri-gowardhan-en/front.jpg"
 coverBack: "/images/books/krnsa-kathamrita-vol-15-giri-gowardhan-en/back.jpg"

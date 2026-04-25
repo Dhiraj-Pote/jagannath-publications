@@ -1,6 +1,7 @@
 ---
 title: "Vedic Dharma II (Varnashrama System)"
 language: "English"
+price: 400
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/vedic-dharma-ii-varnashrama-system-en/front.jpg"
 coverBack: "/images/books/vedic-dharma-ii-varnashrama-system-en/back.jpg"

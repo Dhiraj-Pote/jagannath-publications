@@ -1,6 +1,7 @@
 ---
 title: "Envy"
 language: "English"
+price: 600
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/envy-en/front.jpg"
 coverBack: "/images/books/envy-en/back.jpg"

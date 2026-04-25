@@ -1,6 +1,7 @@
 ---
 title: "Asanti Kena"
 language: "Bengali"
+price: 110
 coverFront: "/images/books/asanti-kena-be/front.jpg"
 coverBack: "/images/books/asanti-kena-be/back.jpg"
 indexPages:

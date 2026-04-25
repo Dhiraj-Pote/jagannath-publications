@@ -1,6 +1,7 @@
 ---
 title: "Sri Guru II"
 language: "English"
+price: 300
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/sri-guru-ii-en/front.jpg"
 coverBack: "/images/books/sri-guru-ii-en/back.jpg"

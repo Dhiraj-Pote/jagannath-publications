@@ -1,6 +1,7 @@
 ---
 title: "When Good Fortune Arises"
 language: "English"
+price: 300
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/when-good-fortune-arises-en/front.jpg"
 coverBack: "/images/books/when-good-fortune-arises-en/back.jpg"

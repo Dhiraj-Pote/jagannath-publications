@@ -1,0 +1,145 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Cart from '../components/Cart.astro';
+---
+
+<Base
+  title="The Author"
+  description="Sri Srimad Gour Govinda Swami — a visionary saint who spoke from the heart of the Srimad Bhagavatam."
+>
+  <Header />
+
+  <main class="pt-28 sm:pt-36 pb-20">
+    <section id="about" class="py-12 sm:py-20">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="author-card rounded-3xl p-6 sm:p-8 lg:p-10">
+          <div class="author-grid">
+
+            <!-- Portrait — stands at bottom of card -->
+            <div class="author-portrait">
+              <img
+                src="/images/maharaja-bg-rm.png"
+                alt="Srila Gour Govinda Swami Maharaja"
+                loading="eager"
+              />
+            </div>
+
+            <!-- Text -->
+            <div class="author-text">
+              <p class="font-display text-xs tracking-[0.3em] uppercase text-brand-500 mb-3 font-semibold">
+                The Author
+              </p>
+              <h2 class="font-display text-2xl sm:text-3xl font-bold text-[var(--text-secondary)] leading-tight mb-1">
+                Sri Srimad
+              </h2>
+              <h2 class="author-title font-display font-bold text-[var(--text-primary)] leading-tight mb-5">
+                Gour Govinda Swami
+              </h2>
+              <p class="font-display text-base sm:text-lg text-[var(--text-muted)] leading-relaxed mb-5 max-w-xl">
+                A visionary saint who spoke from the heart of the Srimad Bhagavatam, revealing
+                the deepest secrets of pure devotional service.
+              </p>
+              <a
+                href="/biography/"
+                class="inline-block font-display text-xs uppercase tracking-[0.25em] text-brand-500 hover:text-brand-600 font-semibold"
+              >
+                Discover His Journey →
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Signature — positioned at card bottom-right, spans card width -->
+          <img
+            src="/images/signature%20SGGS.png"
+            alt="Signature of Srila Gour Govinda Swami"
+            class="author-signature"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <Cart />
+</Base>
+
+<style>
+  .author-card {
+    position: relative;
+    background: rgba(250, 246, 238, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow:
+      0 8px 32px rgba(74, 28, 21, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+  }
+
+  .author-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: end;
+  }
+  @media (min-width: 640px) {
+    .author-grid { grid-template-columns: auto 1fr; gap: 2rem; }
+  }
+  @media (min-width: 1024px) {
+    .author-grid { gap: 2.5rem; }
+  }
+
+  .author-portrait {
+    display: flex;
+    justify-content: center;
+    align-self: end;
+    margin: -1rem 0 0.5rem -1.5rem;
+  }
+  .author-portrait img {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+  @media (min-width: 640px) {
+    .author-portrait { justify-content: flex-start; margin: -1rem 0 1rem -2rem; }
+    .author-portrait img { width: 240px; }
+  }
+  @media (min-width: 1024px) {
+    .author-portrait { margin: -1rem 0 1.25rem -2.5rem; }
+    .author-portrait img { width: 300px; }
+  }
+
+  .author-text { min-width: 0; padding-bottom: 3.5rem; }
+  @media (min-width: 640px) { .author-text { padding-bottom: 4rem; } }
+  @media (min-width: 1024px) { .author-text { padding-bottom: 4.5rem; } }
+
+  .author-title {
+    font-size: clamp(1.5rem, 3.6vw, 2.5rem);
+    white-space: nowrap;
+    overflow: visible;
+  }
+  @media (max-width: 480px) {
+    .author-title { white-space: normal; font-size: 1.5rem; }
+  }
+
+  .author-signature {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.25rem;
+    width: 200px;
+    max-width: 45%;
+    height: auto;
+    opacity: 0.9;
+    pointer-events: none;
+    user-select: none;
+  }
+  @media (min-width: 640px) {
+    .author-signature { width: 260px; bottom: 1.25rem; right: 1.75rem; }
+  }
+  @media (min-width: 1024px) {
+    .author-signature { width: 320px; bottom: 1.5rem; right: 2rem; }
+  }
+</style>

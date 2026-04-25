@@ -1,6 +1,7 @@
 ---
 title: "Worship of Sri Guru"
 language: "English"
+price: 150
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/worship-of-sri-guru-en/front.jpg"
 coverBack: "/images/books/worship-of-sri-guru-en/back.jpg"

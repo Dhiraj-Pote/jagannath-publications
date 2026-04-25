@@ -1,6 +1,7 @@
 ---
 title: "Suddha Naam Bhajan"
 language: "Bengali"
+price: 60
 coverFront: "/images/books/suddha-naam-bhajan-be/front.jpg"
 coverBack: "/images/books/suddha-naam-bhajan-be/back.jpg"
 indexPages:

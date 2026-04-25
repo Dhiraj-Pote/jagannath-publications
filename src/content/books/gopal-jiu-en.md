@@ -1,6 +1,7 @@
 ---
 title: "Gopal Jiu"
 language: "English"
+price: 80
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/gopal-jiu-en/front.jpg"
 coverBack: "/images/books/gopal-jiu-en/back.jpg"

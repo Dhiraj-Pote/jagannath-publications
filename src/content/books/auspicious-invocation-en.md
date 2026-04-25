@@ -1,6 +1,7 @@
 ---
 title: "Auspicious Invocation"
 language: "English"
+price: 30
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/auspicious-invocation-en/front.jpg"
 coverBack: "/images/books/auspicious-invocation-en/back.jpg"

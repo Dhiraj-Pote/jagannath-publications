@@ -1,6 +1,7 @@
 ---
 title: "Solid Gold Guru Tattva"
 language: "English"
+price: 60
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/solid-gold-guru-tattva-en/front.jpg"
 coverBack: "/images/books/solid-gold-guru-tattva-en/back.jpg"

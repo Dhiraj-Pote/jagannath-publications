@@ -1,6 +1,7 @@
 ---
 title: "Prem Bhikhari"
 language: "Hindi"
+price: 100
 coverFront: "/images/books/prem-bhikhari-hi/front.jpg"
 coverBack: "/images/books/prem-bhikhari-hi/back.jpg"
 indexPages:

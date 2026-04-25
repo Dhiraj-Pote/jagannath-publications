@@ -13,18 +13,68 @@ const languages = [
 ];
 ---
 
-<div class="flex flex-wrap justify-center gap-2 sm:gap-3">
+<div class="lang-pills">
   {languages.map(l => (
     <a
       href={`/books/language/${l.slug}/`}
-      class:list={[
-        'lang-pill px-6 py-2 rounded-full font-display text-sm font-medium transition-all whitespace-nowrap border',
-        active === l.slug
-          ? 'bg-brand-500 text-white border-brand-500 shadow-md'
-          : 'bg-transparent text-[var(--text-primary)] border-[var(--border-strong)] hover:border-brand-400 hover:text-brand-500',
-      ]}
+      class:list={['lang-pill', active === l.slug ? 'is-active' : '']}
     >
       {l.label}
     </a>
   ))}
 </div>
+
+<style>
+  .lang-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  @media (min-width: 640px) {
+    .lang-pills { gap: 1rem; }
+  }
+
+  .lang-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.75rem;
+    border-radius: 9999px;
+    font-family: 'Gatwick', Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--text-primary);
+    background: #fdfbf7;
+    border: 1.5px solid rgba(0, 0, 0, 0.18);
+    box-shadow: 0 2px 8px rgba(74, 28, 21, 0.06);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  }
+  @media (min-width: 640px) {
+    .lang-pill {
+      padding: 0.875rem 2.25rem;
+      font-size: 1rem;
+    }
+  }
+  .lang-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(74, 28, 21, 0.12);
+  }
+
+  /* Active — orange gradient pill with warm glow */
+  .lang-pill.is-active {
+    color: #fff;
+    background: linear-gradient(180deg, #e67e22 0%, #c05e0b 100%);
+    border-color: #c05e0b;
+    box-shadow:
+      0 6px 18px rgba(192, 94, 11, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  .lang-pill.is-active:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+  }
+</style>

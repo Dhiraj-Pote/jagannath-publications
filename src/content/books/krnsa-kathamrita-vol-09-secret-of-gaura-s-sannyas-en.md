@@ -1,6 +1,7 @@
 ---
 title: "Krnsa Kathamrita vol 09 (Secret of Gaura's Sannyas)"
 language: "English"
+price: 150
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/krnsa-kathamrita-vol-09-secret-of-gaura-s-sannyas-en/front.jpg"
 coverBack: "/images/books/krnsa-kathamrita-vol-09-secret-of-gaura-s-sannyas-en/back.jpg"

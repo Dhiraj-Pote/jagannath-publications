@@ -1,6 +1,7 @@
 ---
 title: "Last Limit Of Bhakti"
 language: "Russian"
+price: 100
 coverFront: "/images/books/last-limit-of-bhakti-ru/front.jpg"
 coverBack: "/images/books/last-limit-of-bhakti-ru/back.jpg"
 indexPages:

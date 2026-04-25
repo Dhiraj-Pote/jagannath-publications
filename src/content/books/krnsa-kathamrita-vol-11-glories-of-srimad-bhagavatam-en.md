@@ -1,6 +1,7 @@
 ---
 title: "Krnsa Kathamrita vol 11 (Glories of Srimad Bhagavatam)"
 language: "English"
+price: 150
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/krnsa-kathamrita-vol-11-glories-of-srimad-bhagavatam-en/front.jpg"
 coverBack: "/images/books/krnsa-kathamrita-vol-11-glories-of-srimad-bhagavatam-en/back.jpg"

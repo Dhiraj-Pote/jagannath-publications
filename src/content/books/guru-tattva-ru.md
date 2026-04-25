@@ -1,6 +1,7 @@
 ---
 title: "Guru Tattva"
 language: "Russian"
+price: 60
 coverFront: "/images/books/guru-tattva-ru/front.jpg"
 coverBack: "/images/books/guru-tattva-ru/back.jpg"
 indexPages:

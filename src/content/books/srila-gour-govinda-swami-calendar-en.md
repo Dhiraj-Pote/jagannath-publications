@@ -1,6 +1,7 @@
 ---
 title: "Srila Gour Govinda Swami Calendar"
 language: "English"
+price: 500
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/srila-gour-govinda-swami-calendar-en/front.jpg"
 coverBack: "/images/books/srila-gour-govinda-swami-calendar-en/back.jpg"

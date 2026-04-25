@@ -1,6 +1,7 @@
 ---
 title: "Krnsa Kathamrita vol 12 (Hidden Identity of Lord Jagannath)"
 language: "English"
+price: 150
 publisher: "Gopal Jiu Publications"
 coverFront: "/images/books/krnsa-kathamrita-vol-12-hidden-identity-of-lord-jagannath-en/front.jpg"
 coverBack: "/images/books/krnsa-kathamrita-vol-12-hidden-identity-of-lord-jagannath-en/back.jpg"

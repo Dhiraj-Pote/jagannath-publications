@@ -38,11 +38,11 @@ const showControls = images.length > 1;
 <Base title={title} description={`${title} by Srila Gour Govinda Swami Maharaja. ${language} edition.`}>
   <Header />
 
-  <main class="pt-28 pb-20">
+  <main class="pt-36 sm:pt-44 pb-20">
     <div class="max-w-6xl mx-auto px-5 sm:px-8">
       <!-- Back link -->
-      <a href="/books/" class="inline-flex items-center gap-2 font-display text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] transition mb-8">
-        <span>←</span> Back to Library
+      <a href="/books/" class="back-link">
+        <span aria-hidden="true">←</span> Back to Library
       </a>
 
       <div class="grid md:grid-cols-[1fr_1.2fr] gap-10 lg:gap-16">
@@ -121,12 +121,14 @@ const showControls = images.length > 1;
             </p>
 
             <!-- Price -->
-            {priceDisplay && (
-              <p class="font-display text-2xl font-bold text-brand-500">{priceDisplay}</p>
+            {price && (
+              <p class="book-price">
+                <span class="book-price__currency">{currency === 'INR' ? '₹' : currency}</span>{price.toLocaleString('en-IN')}
+              </p>
             )}
 
             <!-- Description -->
-            <div class="prose prose-sm max-w-none text-[var(--text-muted)] font-display leading-relaxed">
+            <div class="book-description prose prose-sm max-w-none text-[var(--text-muted)] font-display leading-relaxed">
               <p class="text-[var(--text-primary)] font-semibold inline">Description: </p>
               <Content />
             </div>

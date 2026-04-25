@@ -1,6 +1,7 @@
 ---
 title: "Sri Radha Vol ii"
 language: "English"
+price: 350
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/sri-radha-vol-ii-en/front.webp"
 coverBack: "/images/books/sri-radha-vol-ii-en/back.webp"

@@ -1,6 +1,7 @@
 ---
 title: "Suddha Naam Bhajan (New Cover)"
 language: "English"
+price: 200
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/suddha-naam-bhajan-new-cover-en/front.jpg"
 coverBack: "/images/books/suddha-naam-bhajan-new-cover-en/back.jpg"

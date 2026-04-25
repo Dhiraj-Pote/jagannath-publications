@@ -1,6 +1,7 @@
 ---
 title: After Disappearance Of Sri Guru
 language: English
+price: 30
 publisher: Gopal Jiu Publications
 coverFront: /images/books/after-disappearance-of-sri-guru-en/front.jpg
 coverBack: /images/books/after-disappearance-of-sri-guru-en/back.jpg

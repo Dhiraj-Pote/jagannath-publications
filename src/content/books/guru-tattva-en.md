@@ -1,6 +1,7 @@
 ---
 title: "Guru Tattva"
 language: "English"
+price: 60
 publisher: "Tattva Vichar Publications"
 coverFront: "/images/books/guru-tattva-en/front.jpg"
 coverBack: "/images/books/guru-tattva-en/back.jpg"
