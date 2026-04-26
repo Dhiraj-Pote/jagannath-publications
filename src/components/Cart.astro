@@ -256,7 +256,7 @@ const cartLookup = allBooks.reduce((acc, b) => {
         if (!btn.dataset.defaultText) {
           btn.dataset.defaultText = labelEl.textContent.trim();
         }
-        labelEl.textContent = `Added (${item.qty})`;
+        labelEl.textContent = 'Added!';
         btn.classList.add('is-added');
         btn.dataset.active = '1';
       } else if (btn.dataset.active === '1') {
@@ -268,7 +268,8 @@ const cartLookup = allBooks.reduce((acc, b) => {
   }
   window.updateCartButtons = updateCartButtons;
 
-  // Wire up all add-to-bag buttons (delegation for dynamic content)
+  // Wire up all add-to-bag buttons (delegation for dynamic content).
+  // Click toggles: if not in cart → add; if in cart → remove.
   document.addEventListener('click', function(e) {
     const btn = e.target.closest('.add-to-bag-btn');
     if (!btn) return;
@@ -276,8 +277,16 @@ const cartLookup = allBooks.reduce((acc, b) => {
     const slug = btn.getAttribute('data-cart-btn');
     const title = btn.getAttribute('data-title');
     const language = btn.getAttribute('data-language');
-    if (!btn.dataset.defaultText) btn.dataset.defaultText = btn.textContent.trim();
-    cartAdd(slug, title, language);
+    if (!btn.dataset.defaultText) {
+      const label = btn.querySelector('.add-to-bag-btn__label');
+      btn.dataset.defaultText = (label || btn).textContent.trim();
+    }
+    const inCart = cartItems.some(i => i.slug === slug);
+    if (inCart) {
+      cartRemove(slug);
+    } else {
+      cartAdd(slug, title, language);
+    }
   });
 
   cartRender();

@@ -39,6 +39,7 @@ const languages = [
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: 160px;
     padding: 0.75rem 1.75rem;
     border-radius: 9999px;
     font-family: 'Gatwick', Georgia, serif;
@@ -55,6 +56,7 @@ const languages = [
   }
   @media (min-width: 640px) {
     .lang-pill {
+      min-width: 180px;
       padding: 0.875rem 2.25rem;
       font-size: 1rem;
     }
@@ -64,13 +66,14 @@ const languages = [
     box-shadow: 0 4px 14px rgba(74, 28, 21, 0.12);
   }
 
-  /* Active — orange gradient pill with warm glow */
+  /* Active — orange (#e67e22) with warm glow */
   .lang-pill.is-active {
     color: #fff;
-    background: linear-gradient(180deg, #e67e22 0%, #c05e0b 100%);
-    border-color: #c05e0b;
+    background: #e67e22;
+    border-color: #e67e22;
     box-shadow:
-      0 6px 18px rgba(192, 94, 11, 0.4),
+      0 0 0 4px rgba(230, 126, 34, 0.18),
+      0 8px 22px rgba(230, 126, 34, 0.5),
       inset 0 1px 0 rgba(255, 255, 255, 0.25);
   }
   .lang-pill.is-active:hover {

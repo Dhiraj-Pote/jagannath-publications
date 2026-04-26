@@ -412,12 +412,20 @@
 /* ═══════════════════════════════════════════════════════════
    LOTUS DIVIDER — horizontal lines with lotus icon in center
    ═══════════════════════════════════════════════════════════ */
+.lotus-divider-wrap {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2rem 0rem;
+}
+@media (min-width: 640px) {
+  .lotus-divider-wrap { padding: 4rem 2rem; }
+}
 .lotus-divider {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  max-width: 640px;
+  max-width: 1110px;
   margin: 0 auto;
 }
 .lotus-line {
@@ -432,15 +440,17 @@
   );
 }
 .lotus-icon {
-  width: 72px;
-  height: 72px;
+  width: 120px;
+  height: auto;          /* let image keep its natural aspect (wide, not square) */
+  display: block;
   object-fit: contain;
   opacity: 0.85;
   flex-shrink: 0;
+  margin: -6px 0;        /* pull upward/downward to cancel line-box whitespace */
 }
 @media (min-width: 640px) {
-  .lotus-icon { width: 96px; height: 96px; }
+  .lotus-icon { width: 180px; margin: -8px 0; }
 }
 @media (min-width: 1024px) {
-  .lotus-icon { width: 112px; height: 112px; }
+  .lotus-icon { width: 380px; margin: -12px 0; }
 }

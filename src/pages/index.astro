@@ -108,7 +108,7 @@ const featured = books.slice(0, 8);
 </section>
 
   <!-- Ornament divider -->
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-4">
+  <div class="lotus-divider-wrap">
     <div class="lotus-divider">
       <span class="lotus-line"></span>
       <img src="/images/lotus.png" alt="" class="lotus-icon" />
@@ -117,15 +117,15 @@ const featured = books.slice(0, 8);
   </div>
 
   <!-- ═══════ LANGUAGE PILLS + FEATURED BOOKS ═══════ -->
-  <section id="library" class="py-8 sm:py-12">
+  <section id="library" class="pt-0 pb-8 sm:pt-0 sm:pb-12">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
       <!-- Language pills -->
-      <div class="flex justify-center mb-10">
+      <div class="flex justify-center mb-16">
         <LanguagePills />
       </div>
 
       <!-- Book grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-7 mb-12">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-16">
         {featured.map(book => (
           <BookCard
             slug={book.slug}
@@ -151,7 +151,7 @@ const featured = books.slice(0, 8);
   </section>
 
   <!-- Ornament divider (lotus) -->
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-6">
+  <div class="lotus-divider-wrap">
     <div class="lotus-divider">
       <span class="lotus-line"></span>
       <img src="/images/lotus.png" alt="" class="lotus-icon" />
@@ -182,7 +182,7 @@ const featured = books.slice(0, 8);
   </section>
 
   <!-- Ornament divider (diamond) -->
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-6">
+  <div class="lotus-divider-wrap">
     <div class="lotus-divider">
       <span class="lotus-line"></span>
       <img src="/images/lotus.png" alt="" class="lotus-icon" />
@@ -207,13 +207,13 @@ const featured = books.slice(0, 8);
 
   /* Author card section spacing — gap above/below the card */
   .author-section {
-    padding-top: 1rem;        /* gap between hero and author card (mobile) */
-    padding-bottom: 3rem;     /* gap below author card (mobile) */
+    padding-top: 1rem;
+    padding-bottom: 0rem;
   }
   @media (min-width: 640px) {
     .author-section {
-      padding-top: 1.5rem;    /* desktop top gap */
-      padding-bottom: 4rem;   /* desktop bottom gap */
+      padding-top: 1.5rem;
+      padding-bottom: 0rem;
     }
   }
 

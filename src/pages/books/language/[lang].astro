@@ -40,7 +40,7 @@ const htmlLang = {
 <Base title={`${languageLabel} Books`} lang={htmlLang}>
   <Header />
 
-  <main class="pt-28 pb-20">
+  <main class="pt-36 sm:pt-44 pb-20">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
       <!-- Language pills -->
       <div class="flex justify-center mb-10">
@@ -59,7 +59,7 @@ const htmlLang = {
 
       <!-- Book grid -->
       {books.length > 0 ? (
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-7">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
           {books.map(book => (
             <BookCard
               slug={book.slug}
